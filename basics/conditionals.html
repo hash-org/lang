@@ -1,0 +1,456 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Conditional statements - The Hash Programming Language</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        
+        <link rel="icon" href="../favicon.svg">
+        
+        
+        <link rel="shortcut icon" href="../favicon.png">
+        
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        
+        <link rel="stylesheet" href="../css/print.css" media="print">
+        
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="../fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="../basics/intro.html"><strong aria-hidden="true">2.</strong> Language Basics</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../basics/variables.html"><strong aria-hidden="true">2.1.</strong> Variables</a></li><li class="chapter-item expanded "><a href="../basics/operators.html"><strong aria-hidden="true">2.2.</strong> Operators &amp; Symbols</a></li><li class="chapter-item expanded "><a href="../basics/types.html"><strong aria-hidden="true">2.3.</strong> Types, Structs and Enums</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../basics/primitive-types.html"><strong aria-hidden="true">2.3.1.</strong> Primitives</a></li><li class="chapter-item expanded "><a href="../basics/struct-types.html"><strong aria-hidden="true">2.3.2.</strong> Struct types</a></li><li class="chapter-item expanded "><a href="../basics/enum-types.html"><strong aria-hidden="true">2.3.3.</strong> Enum types</a></li><li class="chapter-item expanded "><a href="../basics/generics-polymorphism.html"><strong aria-hidden="true">2.3.4.</strong> Generics and polymorphism</a></li><li class="chapter-item expanded "><a href="../basics/types-assertions.html"><strong aria-hidden="true">2.3.5.</strong> Type Assertions</a></li></ol></li><li class="chapter-item expanded "><a href="../basics/conditionals.html" class="active"><strong aria-hidden="true">2.4.</strong> Conditional statements</a></li><li class="chapter-item expanded "><a href="../basics/pattern-matching.html"><strong aria-hidden="true">2.5.</strong> Pattern matching</a></li><li class="chapter-item expanded "><a href="../basics/loops.html"><strong aria-hidden="true">2.6.</strong> Loops</a></li><li class="chapter-item expanded "><a href="../basics/functions.html"><strong aria-hidden="true">2.7.</strong> Functions</a></li><li class="chapter-item expanded "><a href="../basics/prelude.html"><strong aria-hidden="true">2.8.</strong> Prelude &amp; Built-in functionality</a></li><li class="chapter-item expanded "><a href="../basics/modules.html"><strong aria-hidden="true">2.9.</strong> Modules</a></li></ol></li><li class="chapter-item expanded "><a href="../standard-library/intro.html"><strong aria-hidden="true">3.</strong> Standard library</a></li><li class="chapter-item expanded "><a href="../interpreter/intro.html"><strong aria-hidden="true">4.</strong> Interpreter</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../interpreter/options.html"><strong aria-hidden="true">4.1.</strong> Interpreter Options</a></li><li class="chapter-item expanded "><a href="../interpreter/backends.html"><strong aria-hidden="true">4.2.</strong> Compiler backends</a></li></ol></li><li class="chapter-item expanded "><a href="../advanced/intro.html"><strong aria-hidden="true">5.</strong> Advanced Concepts</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../advanced/compiler-internals.html"><strong aria-hidden="true">5.1.</strong> Compiler internals</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../advanced/loop-transpilation.html"><strong aria-hidden="true">5.1.1.</strong> Loop transpilation</a></li><li class="chapter-item expanded "><a href="../advanced/if-statement-transpilation.html"><strong aria-hidden="true">5.1.2.</strong> If statement transpilation</a></li><li class="chapter-item expanded "><a href="../advanced/type-inference.html"><strong aria-hidden="true">5.1.3.</strong> Type inference</a></li></ol></li><li class="chapter-item expanded "><a href="../advanced/future-features.html"><strong aria-hidden="true">5.2.</strong> Future features</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">The Hash Programming Language</h1>
+
+                    <div class="right-buttons">
+                        
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                        
+                        
+
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h2 id="conditional-statements"><a class="header" href="#conditional-statements">Conditional statements</a></h2>
+<p>Conditional statements in the <code>Hash</code> programming language are very similar to other languages such as Python, Javascript, C and Rust. However, there is one subtle <strong>difference</strong>, which is that the statement provided to a conditional statement must always evaluate to an explicit boolean value. </p>
+<h2 id="if-else-statements"><a class="header" href="#if-else-statements">If-else statements</a></h2>
+<p>If statements are very basic constructs in Hash. An example of a basic <code>if-else</code> statement is as follows:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// checking if the value 'a' evaluates to being 'true'
+if a { print(&quot;a&quot;); } else { print(&quot;b&quot;); }
+
+// using a comparison operator
+if b == 2 { print(&quot;b is &quot; + b); } else { print (&quot;b is not &quot; + conv(b)); }
+<span class="boring">}
+</span></code></pre></pre>
+<p>Obviously, this checks if the evaluation of <code>a</code> returns a boolean value. If it does not
+evaluate to something to be considered as true, then the block expression defined
+at <code>else</code> is executed.</p>
+<p>If you want multiple clauses, you can utilise the <code>else-if</code> syntax to define multiple
+conditional statements. To use the <code>else-if</code> syntax, you do so like this:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>if b == 2 {
+     print(&quot;b is 2&quot;)
+} else if b == 3 {
+     print(&quot;b is 3&quot;)
+} else {
+    print(&quot;b isn't 2 or 3 &quot;)
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>As mentioned in the introduction, a conditional statement must evaluate an explicit boolean value. The <code>if</code> statement syntax will not infer a boolean value from a statement within <code>Hash</code>. This design feature is motivated by the fact that in many languages, common bugs and mistakes occur with the automatic inference of conditional statements. </p>
+<p>An example of an invalid program is:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let a: u8 = 12;
+
+if a { print(&quot;a&quot;) }
+<span class="boring">}
+</span></code></pre></pre>
+<h3 id="additional-syntax"><a class="header" href="#additional-syntax">Additional syntax</a></h3>
+<p>Furthermore, if you do not want an else statement you can do:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>if a { print(&quot;a&quot;) }  // if a is true, then execute
+<span class="boring">}
+</span></code></pre></pre>
+<p>which is syntactic sugar for:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>if a { print(&quot;a&quot;) } else {}
+<span class="boring">}
+</span></code></pre></pre>
+<p>Additionally, since the <code>if</code> statement body's are also equivalent to functional bodies, you
+can also specifically return a type as you would normally do within a function body:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let abs: (i64: x) =&gt; i64 = if x &lt; 0 { -x } else { x }
+<span class="boring">}
+</span></code></pre></pre>
+<p>However, you cannot do something like this:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let abs: (i64: x) =&gt; i64 = if x &lt; 0 { -x }
+<span class="boring">}
+</span></code></pre></pre>
+<p><strong>Note</strong>: here that you will not get a syntax error if you run this, but you will encounter an error during the interpretation stage of the program because the function may not have any return type since this has no definition
+of what should happen for the <code>else</code> case.</p>
+<h2 id="if-statements-and-enums-"><a class="header" href="#if-statements-and-enums-">If statements and Enums 🚧</a></h2>
+<p>You can destruct enum values within if statments using the <code>if-let</code> syntax, like so:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>enum Result = &lt;T, E&gt; =&gt; {
+   Ok(T);
+   Err(E);
+};
+
+// mission critical, program should exit if it failed
+let result: Result&lt;u16, str&gt; = Ok(12);
+
+if let Ok(value) = result  { 
+  print(&quot;Got '&quot; + conv(value) + &quot;' from operation&quot;) 
+} else let Err(e) = result {
+  panic(&quot;Failed to get result: &quot; + e);
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>Furthermore, for more complicated conditional statements, you can include an expression
+block which is essentially treated as if it was a functional body, like so:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let f: str = &quot;file.txt&quot;;
+
+if { let a = open(f); is_ok(a) } {
+    // run if is_ok(a) returns true
+}
+
+// the above statement can also be written as
+let a = open(f);
+
+if is_ok(a) {
+    // run if is_ok(a) returns true
+}
+
+<span class="boring">}
+</span></code></pre></pre>
+<p>The only difference between those two examples is that within the first, a is contained within
+the if statement condition body expression, i.e; the <code>a</code> variable will not be visible to any further
+scope. This has some advantages, specifically when you don't wish to store that particular result
+from the operation. But if you do, you can always use the second version to utilise the result
+of <code>a</code> within the <code>if</code> statement body or later on in the program.</p>
+<br />
+<h2 id="match-cases"><a class="header" href="#match-cases">Match cases</a></h2>
+<p>Match cases are one step above the simple <code>if-else</code> syntax.  Using a matching case, you can construct more complicated cases in a more readable format than u can with an <code>if-else</code> statement. Additionally, you can destruct Enums into their corresponding values. To use a matching case, you do the following:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span>
+<span class="boring">fn main() {
+</span>let a = input&lt;u8&gt;();
+
+let m2 = match a {
+  1 =&gt; &quot;one&quot;;
+  2 =&gt; &quot;two&quot;;
+  _ =&gt; &quot;not one or two&quot;;
+}
+
+// Or as a function
+
+let convert: (x: u8) =&gt; str = (x) =&gt; match x {
+  1 =&gt; &quot;one&quot;;
+  2 =&gt; &quot;two&quot;;
+  _ =&gt; &quot;not one or two&quot;;
+}
+
+let m = convert(input&lt;u8&gt;());
+<span class="boring">}
+</span></code></pre></pre>
+<p>The <code>_</code> case is a special wildcard case that captures any case. This is essentially synonymous with the <code>else</code> clause in many other languages like Python or JavaScript. For conventional purposes, it should be included when creating a <code>match</code> statement where the type value is not reasonably bounded (like an integer). One subtle difference with the <code>match</code> syntax is you must always explicitly define a <code>_</code> case. This language behaviour is designed to enforce that <code>explicit</code> is better than <code>implicit</code>. So, if you know that a program should never hit
+the default case:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>match x {
+  1 =&gt; &quot;one&quot;;
+  2 =&gt; &quot;two&quot;;
+  _ =&gt; unreachable(); // we know that 'x' should never be 1 or 2.
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p><strong>Note</strong>: You do not have to provide a default case if you have defined all the cases for a type (this mainly applies to enums).</p>
+<p>Additionally, because cases are matched incrementally, by doing the following:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let convert: (x: u8) =&gt; str = (x) =&gt; match x {
+  _ =&gt; &quot;not one or two&quot;;
+  1 =&gt; &quot;one&quot;;
+  2 =&gt; &quot;two&quot;;
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>The value of <code>m</code> will always evaluate as <code>&quot;not one or two&quot;</code> since the wildcard matches any condition.</p>
+<p>Match statements are also really good for destructing enum types in Hash. 
+For example,</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>enum Result = &lt;T, E&gt; =&gt; {
+   Ok(T);
+   Err(E);
+};
+
+...
+
+// mission critical, program should exit if it failed
+let result: Result&lt;u16, str&gt; = Ok(12);
+
+match result {
+  Ok(value) =&gt; print(&quot;Got '&quot; + conv(value) + &quot;' from operation&quot;);
+  Err(e)    =&gt; panic(&quot;Failed to get result: &quot; + e);
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>To specify multiple conditions for a single case within a <code>match</code> statement, you can do so by
+writing the following syntax:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let x: u32 = input&lt;u32&gt;();
+
+match x {
+  1 | 2 | 3       =&gt; print(&quot;x is 1, 2, or 3&quot;);
+  4 | 5 | {2 | 4} =&gt; print(&quot;x is either 4, 5 or 6&quot;); // using bitwise or operator
+  _               =&gt; print(&quot;x is something else&quot;);
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>To specify more complex conditional statements like and within the match case, you
+can do so using the <code>match-if</code> syntax, like so:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let x: u32 = input&lt;u32&gt;();
+let y: bool = true;
+
+match x {
+  1 | 2 | 3 if y =&gt; print(&quot;x is 1, 2, or 3 when y is true&quot;);
+  {4 if y} | y   =&gt; print(&quot;x is 4 and y is true, or  x is equal to y&quot;); // using bitwise or operator
+  {2 | 4 if y}   =&gt; print(&quot;x is 6 and y is true&quot;);
+  _              =&gt; print(&quot;x is something else&quot;);
+}
+<span class="boring">}
+</span></code></pre></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../basics/types-assertions.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../basics/pattern-matching.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="../basics/types-assertions.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="../basics/pattern-matching.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>
