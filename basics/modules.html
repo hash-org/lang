@@ -158,7 +158,7 @@
 │       └── c.hash
 └── main.hash
 </code></pre>
-<p>Modules in hash allow for a source to be split up into smaller code fragments, allowing for better source code organisation and maintainance.</p>
+<p>Modules in hash allow for a source to be split up into smaller code fragments, allowing for better source code organisation and maintenance.</p>
 <p>You can import modules by specifying the path relative to the current path. </p>
 <p>For example, if you wanted to include the modules <code>a</code>, <code>b</code>, and or <code>c</code> within your main file</p>
 <pre><pre class="playground"><code class="language-rust">
@@ -224,15 +224,8 @@ let p1 = LibPoint { x=2; y=3 };
 </span></code></pre></pre>
 <blockquote>
 <p><strong>Note</strong>: Naming is entirely up to the developer, there are no restrictions on naming
-except the language naming </p>
+except the language naming.</p>
 </blockquote>
-<h3 id="cyclic-imports-"><a class="header" href="#cyclic-imports-">Cyclic imports 🚧</a></h3>
-<p>Hash does not currently support cyclical dependencies within a project. Two modules within a project cannot be dependent on each other. As much as this might be an inconvienience, this is done to avoid &quot;behaviour&quot; which is implied by supporting cyclical imports. Other languages such as JavaScript support cyclical imports but can sometimes exhibit strange behaviour when using modules with cyclical imports.</p>
-<p>It is currently under consideration to lift this restriction, but at the same time avoid strange behaviours when supporting cyclical imports.</p>
-<p>If you attempt to run a module which has a cyclical import, the compiler will error and refuse to run the module like so:</p>
-<pre><code class="language-sh">$ hash -e ./module_with_cyclic_imports.hash
-error: Found circular dependency in &quot;./module_with_cyclic_imports.hash&quot;
-</code></pre>
 
                     </main>
 

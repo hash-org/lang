@@ -150,13 +150,13 @@
 <p>As mentioned at the start of the <a href="./../basics/loops.html">loops</a> section in the <a href="./../basics/intro.html">basics</a> chapter, the <code>loop</code> control flow keyword
 is the most universal control flow since to you can use <code>loop</code> to represent 
 both the <code>for</code> and <code>while</code> loops. </p>
-<h3 id="for-loop-transpillation"><a class="header" href="#for-loop-transpillation">for loop transpillation</a></h3>
+<h3 id="for-loop-transpilation"><a class="header" href="#for-loop-transpilation">for loop transpilation</a></h3>
 <p>Since <code>for</code> loops are used for iterators in hash, we transpile the construct into
 a primitive loop. An iterator can be traversed by calling the <code>next</code> function on the
 iterator. Since <code>next</code> returns a <code>Option</code> type, we need to check if there is a value
 or if it returns <code>None</code>. If a value does exist, we essentially perform an assignment
-to the pattern provided. If <code>None</code>, the branch immediatelly breaks the <code>for</code> loop.
-A rough outline of what the transpillation process for a <code>for</code> loop looks like:</p>
+to the pattern provided. If <code>None</code>, the branch immediately breaks the <code>for</code> loop.
+A rough outline of what the transpilation process for a <code>for</code> loop looks like:</p>
 <p>For example, the <code>for</code> loop can be expressed using <code>loop</code> as:</p>
 <pre><code>for &lt;pat&gt; in &lt;iterator&gt; {
     &lt;block&gt;
@@ -170,7 +170,7 @@ loop {
     }
 }
 </code></pre>
-<p>An example of the transpillation process:</p>
+<p>An example of the transpilation process:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
@@ -195,8 +195,8 @@ loop {
 <h3 id="while-loop-internal-representation"><a class="header" href="#while-loop-internal-representation">While loop internal representation</a></h3>
 <p>In general, a while loop transpilation process occurs by transferring the looping 
 condition into a match block, which compares a boolean condition. If the boolean
-conditionb evaluates to <code>false</code>, the loop will immediatelly <code>break</code>. Otherwise
-the body expression is exected. A rough outline of what the transpillation process for a <code>while</code> loop looks like:</p>
+condition evaluates to <code>false</code>, the loop will immediately <code>break</code>. Otherwise
+the body expression is expected. A rough outline of what the transpilation process for a <code>while</code> loop looks like:</p>
 <pre><code>while &lt;condition&gt; {
     &lt;block&gt;
 }

@@ -167,14 +167,14 @@
 <p>Floating point literals must include either a <code>.</code> or a scientific notation exponent
 like <code>3.0</code>, <code>3e2</code>, <code>30e-1</code>, etc.</p>
 <h3 id="number-types-like-usize--isize--ibig--ubig"><a class="header" href="#number-types-like-usize--isize--ibig--ubig">Number types like <code>usize</code> &amp; <code>isize</code> &amp; <code>ibig</code> &amp; <code>ubig</code></a></h3>
-<p>These number primitives are added for convienience when working with a variety of
+<p>These number primitives are added for convenience when working with a variety of
 problems and host operating systems. The primitives <code>usize</code> and <code>isize</code> are intended
 for list indexing. This is because on some systems (which are 32bit) may not be able
 to support indexing a contiguous region of memory that is larger than '32bit' max value. So, the <code>usize</code> and <code>isize</code> primitives are host system dependent. </p>
 <p>The <code>ibig</code> and <code>ubig</code> number primitives are integer types that have no upper
 or lower bound and will grow until the host operating system memory is exhausted 
 when storing them. These types are intended to be used when working with heavy mathematical problems which may exceed the maximum '64bit' integer boundary.</p>
-<h2 id="bracketted-type-syntax"><a class="header" href="#bracketted-type-syntax">Bracketted type syntax</a></h2>
+<h2 id="bracketed-type-syntax"><a class="header" href="#bracketed-type-syntax">Bracketed type syntax</a></h2>
 <h3 id="list"><a class="header" href="#list">List</a></h3>
 <p>Lists are denoted using the the common square bracket syntax where the values are
 separated by commas, like so:</p>
@@ -182,7 +182,7 @@ separated by commas, like so:</p>
 let y = [];
 let z = [1,]; // optional trailing comma
 </code></pre>
-<p>To explictly declare a variable is of a <code>list</code> type, you do so:</p>
+<p>To explicitly declare a variable is of a <code>list</code> type, you do so:</p>
 <pre><code class="language-rs">let some_list: [u64] = [];
 //             ^^^^^
 //              type
@@ -195,7 +195,7 @@ differences between the common syntax. These differences are:</p>
 <li>Singleton tuple : <code>(A,)</code></li>
 <li>Many membered tuple: <code>(A, B, C)</code> or <code>(A, B, C,)</code> </li>
 </ul>
-<p>To explictly declare a variable is of a <code>tuple</code> type, you do so:</p>
+<p>To explicitly declare a variable is of a <code>tuple</code> type, you do so:</p>
 <pre><code class="language-rs">let empty_tuple: (,) = (,);
 //               ^^^
 //               type
@@ -204,7 +204,7 @@ let some_tuple: (str, u32) = (&quot;string&quot;, 12);
 //              ^^^^^^^^^^
 //                 type
 </code></pre>
-<p><strong>Note</strong>: Trailing commas are not allowed within type defintions.</p>
+<p><strong>Note</strong>: Trailing commas are not allowed within type definitions.</p>
 <p>It's worth noting that tuples are fancy syntax for structures and are indexed
 using 'english' numerical phrasing like <code>first</code>, <code>second</code>, <code>third</code>, etc to access
 each member explicitly. Although, they are intended to be used mostly for pattern
@@ -218,7 +218,7 @@ allow you to do the same thing, and name the fields. Read more about patterns <a
 <li>Singleton set : <code>{A,}</code></li>
 <li>Many membered set: <code>{A, B, C}</code> or <code>{A, B, C,}</code> </li>
 </ul>
-<p>To explictly declare a variable is of a <code>set</code> type, you do so:</p>
+<p>To explicitly declare a variable is of a <code>set</code> type, you do so:</p>
 <pre><code class="language-rs">let some_map: {str} = {,};
 //            ^^^^^
 //            set type
@@ -230,7 +230,7 @@ allow you to do the same thing, and name the fields. Read more about patterns <a
 <li>Singleton map : <code>{A:1}</code> or <code>{A:1,}</code></li>
 <li>Many membered map: <code>{A: 1, B: 2, C: 3}</code> or <code>{A: 1, B: 2, C: 3,}</code> </li>
 </ul>
-<p>To explictly declare a variable is of a <code>map</code> type, you do so:</p>
+<p>To explicitly declare a variable is of a <code>map</code> type, you do so:</p>
 <pre><code class="language-rs">let some_map: {str: u8} = {:};
 //            ^^^^^^^^^
 //            map type

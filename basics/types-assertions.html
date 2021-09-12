@@ -177,16 +177,14 @@ to the right. If the inference results in a different type to the right-hand sid
 <span class="boring">}
 </span></code></pre></pre>
 <p>The compiler will report this error as:</p>
-<pre><code>error: Failed to typecheck:
+<pre><code>error[0052]: Failed to typecheck: Mismatching types
 --&gt; 1:1 - 1:3
   |
-  |
 1 | &quot;2&quot; as char
-  | ^^^    
+  | ^^^  Cannot match type 'char' with 'str'.
   |
-Cannot match type 'char' with 'str'.
 </code></pre>
-<h2 id="usefullness"><a class="header" href="#usefullness">Usefullness</a></h2>
+<h2 id="usefulness"><a class="header" href="#usefulness">Usefulness</a></h2>
 <p>Why are type assertions when there is already type inference within the language? Well, sometimes the type inference
 system does not have enough information to infer the types of variables and declarations. 
 Type inference may not have enough information when dealing with functions that are generic, so it can sometimes

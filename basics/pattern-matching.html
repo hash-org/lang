@@ -172,7 +172,7 @@ to. Literal patterns follow the same syntax to binding patterns. Additionally, l
 binding elements such as the third condition in the <code>match</code> statement: <code>Some(n) =&gt; ...</code> where <code>n</code> is the bind
 to the literal.</p>
 <h2 id="destructuring-patterns"><a class="header" href="#destructuring-patterns">Destructuring patterns</a></h2>
-<p>Destructuring patterns are used to assign parts of an object to seperate variables within <code>let</code>, <code>for</code>, and
+<p>Destructuring patterns are used to assign parts of an object to separate variables within <code>let</code>, <code>for</code>, and
 <code>match</code>statements. A very simple example of a destructuring pattern in a <code>let</code> statement would be:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
@@ -210,10 +210,10 @@ for Point {x, y} in points.iter() {
 <span class="boring">}
 </span></code></pre></pre>
 <p>As you can see within the <code>for</code> loop, the pattern <code>Point{x, y}</code> is being used to
-destruct each point in the array into the seperate fields.</p>
+destruct each point in the array into the separate fields.</p>
 <h2 id="struct-patterns"><a class="header" href="#struct-patterns">Struct patterns</a></h2>
-<p>Struct patterns follow a simiar syntax to struct literals in Hash. You can discard and
-access fields available within a struct by specifiying the field name and then followed
+<p>Struct patterns follow a similar syntax to struct literals in Hash. You can discard and
+access fields available within a struct by specifying the field name and then followed
 by an optional right-hand side pattern to either rename the field or use a literal pattern.</p>
 <h3 id="basic"><a class="header" href="#basic">Basic</a></h3>
 <p>Struct patterns can be used in both literals and destructuring contexts. To destructure a struct
@@ -277,9 +277,9 @@ let compare_id = (car: Car, id: int) =&gt; {
 <span class="boring">}
 </span></code></pre></pre>
 <p>So, in the above example (which is admittedly unrealistic) we rename the cars <code>id</code> field to
-<code>car_id</code> by specifing the right-hand side binding pattern <code>= car_id</code>.</p>
+<code>car_id</code> by specifying the right-hand side binding pattern <code>= car_id</code>.</p>
 <h2 id="namespace-patterns"><a class="header" href="#namespace-patterns">Namespace patterns</a></h2>
-<p>Namspace patterns are very similar to struct patterns, but they can only be used within <code>let</code>
+<p>Namespace patterns are very similar to struct patterns, but they can only be used within <code>let</code>
 statements and when importing symbols from other modules. They follow a simple syntax:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
@@ -328,7 +328,7 @@ you should use a struct in that case which would solve the complexities of your 
 <span class="boring">}
 </span></code></pre></pre>
 <p>Now in this example, the compiler will assume that the size of <code>arr</code> is of length 2, and if not it will error since
-parts of the array are essentially unhandeled. To circumvent this issue you can use the <code>...</code>, (spread) operator which
+parts of the array are essentially unhandled. To circumvent this issue you can use the <code>...</code>, (spread) operator which
 used as a capturing group for some elements. With the example above, you can ignore all of the following elements after
 the first two by writing:</p>
 <pre><pre class="playground"><code class="language-rust">

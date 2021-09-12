@@ -168,18 +168,18 @@ print(x) // :^( error
 <span class="boring">}
 </span></code></pre></pre>
 <p>Will result in the compiler error:</p>
-<pre><code>error: Failed to typecheck:
- --&gt; 1:5
+<pre><code>error[0057]: Failed to typecheck: Un-initialised symbol
+ --&gt; src/file.hash:3:7
   |
 1 | let x:u8;
-  |     ^--- symbol 'x' declared here without initialisation.
+  |     ^ symbol 'x' declared here without initialisation.
   |
+  = note: Consider giving 'x' an initial value.
 
- --&gt; 3:7
+ --&gt; src/file.hash:3:7
   |
 3 | print(x)
-  |       ^
-  |   symbol 'x' is uninitialised.
+  |       ^ symbol 'x' is uninitialised.
 </code></pre>
 <h2 id="type-inference"><a class="header" href="#type-inference">Type inference</a></h2>
 <p>The type of a variable, if not given, is automatically inferred by the value.

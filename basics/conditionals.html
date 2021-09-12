@@ -210,6 +210,13 @@ can also specifically return a type as you would normally do within a function b
 </span>let abs: (i64: x) =&gt; i64 = if x &lt; 0 { -x } else { x }
 <span class="boring">}
 </span></code></pre></pre>
+<p>You can also assign values since <code>if</code> statements are just blocks</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let my_value: i32 = if some_condition == x { 3 } else { 5 };
+<span class="boring">}
+</span></code></pre></pre>
 <p>However, you cannot do something like this:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
@@ -220,7 +227,7 @@ can also specifically return a type as you would normally do within a function b
 <p><strong>Note</strong>: here that you will not get a syntax error if you run this, but you will encounter an error during the interpretation stage of the program because the function may not have any return type since this has no definition
 of what should happen for the <code>else</code> case.</p>
 <h2 id="if-statements-and-enums-"><a class="header" href="#if-statements-and-enums-">If statements and Enums 🚧</a></h2>
-<p>You can destruct enum values within if statments using the <code>if-let</code> syntax, like so:</p>
+<p>You can destruct enum values within if statements using the <code>if-let</code> syntax, like so:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {

@@ -148,7 +148,7 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
-<p>This book is dedicated to documenting and teaching the <code>Hash</code> programming language to newcommers.</p>
+<p>This book is dedicated to documenting and teaching the <code>Hash</code> programming language to newcomers.</p>
 <p>Firstly, Hash is an interpreted, garbage collected, strongly and statically typed language.</p>
 <h2 id="prerequisites-about-the-book"><a class="header" href="#prerequisites-about-the-book">Prerequisites about the book</a></h2>
 <p>Sections which have the 🚧 icon next to the title are likely to change or be re-written in the future
@@ -178,18 +178,18 @@ print(x) // :^( error
 <span class="boring">}
 </span></code></pre></pre>
 <p>Will result in the compiler error:</p>
-<pre><code>error: Failed to typecheck:
- --&gt; 1:5
+<pre><code>error[0057]: Failed to typecheck: Un-initialised symbol
+ --&gt; src/file.hash:3:7
   |
 1 | let x:u8;
-  |     ^--- symbol 'x' declared here without initialisation.
+  |     ^ symbol 'x' declared here without initialisation.
   |
+  = note: Consider giving 'x' an initial value.
 
- --&gt; 3:7
+ --&gt; src/file.hash:3:7
   |
 3 | print(x)
-  |       ^
-  |   symbol 'x' is uninitialised.
+  |       ^ symbol 'x' is uninitialised.
 </code></pre>
 <h2 id="type-inference"><a class="header" href="#type-inference">Type inference</a></h2>
 <p>The type of a variable, if not given, is automatically inferred by the value.
@@ -201,7 +201,6 @@ In <code>let a: X = b</code>, if the type of <code>b</code> is not <code>X</code
 all of the possible operators specified within the grammar. There are more operators that are related to
 a specific group of operations or are used to convey meaning within the language.</p>
 <table><thead><tr><th>Operator</th><th>Example</th><th>Description</th><th>Overloadable trait</th></tr></thead><tbody>
-<tr><td><code>===</code>, <code>!==</code></td><td><code>a === b</code>, <code>a !== c</code></td><td>Referential equality</td><td><code>ref_eq</code></td></tr>
 <tr><td><code>-&gt;</code></td><td>N/A</td><td><code>Reserved</code></td><td>N/A</td></tr>
 <tr><td><code>=&gt;</code></td><td><code>(a) =&gt; a + 2</code></td><td>Function notation</td><td>N/A</td></tr>
 <tr><td><code>==</code>, <code>!=</code></td><td><code>a == 2</code>, <code>b != 'a'</code></td><td>Equality</td><td><code>eq</code></td></tr>
@@ -249,7 +248,8 @@ a specific group of operations or are used to convey meaning within the language
 <table><thead><tr><th>Symbol</th><th>Description</th></tr></thead><tbody>
 <tr><td><code>//...</code></td><td>Line comment</td></tr>
 <tr><td><code>/*...*/</code></td><td>Block comment</td></tr>
-<tr><td>N/A</td><td>Module/function doc comment</td></tr>
+<tr><td><code>///</code></td><td>function doc comment    🚧</td></tr>
+<tr><td><code>//!</code></td><td>module doc comment      🚧</td></tr>
 </tbody></table>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="types"><a class="header" href="#types">Types</a></h1>
 <p>Types in Hash can be split into three distinct categories, which are:</p>
@@ -281,14 +281,14 @@ a specific group of operations or are used to convey meaning within the language
 <p>Floating point literals must include either a <code>.</code> or a scientific notation exponent
 like <code>3.0</code>, <code>3e2</code>, <code>30e-1</code>, etc.</p>
 <h3 id="number-types-like-usize--isize--ibig--ubig"><a class="header" href="#number-types-like-usize--isize--ibig--ubig">Number types like <code>usize</code> &amp; <code>isize</code> &amp; <code>ibig</code> &amp; <code>ubig</code></a></h3>
-<p>These number primitives are added for convienience when working with a variety of
+<p>These number primitives are added for convenience when working with a variety of
 problems and host operating systems. The primitives <code>usize</code> and <code>isize</code> are intended
 for list indexing. This is because on some systems (which are 32bit) may not be able
 to support indexing a contiguous region of memory that is larger than '32bit' max value. So, the <code>usize</code> and <code>isize</code> primitives are host system dependent. </p>
 <p>The <code>ibig</code> and <code>ubig</code> number primitives are integer types that have no upper
 or lower bound and will grow until the host operating system memory is exhausted 
 when storing them. These types are intended to be used when working with heavy mathematical problems which may exceed the maximum '64bit' integer boundary.</p>
-<h2 id="bracketted-type-syntax"><a class="header" href="#bracketted-type-syntax">Bracketted type syntax</a></h2>
+<h2 id="bracketed-type-syntax"><a class="header" href="#bracketed-type-syntax">Bracketed type syntax</a></h2>
 <h3 id="list"><a class="header" href="#list">List</a></h3>
 <p>Lists are denoted using the the common square bracket syntax where the values are
 separated by commas, like so:</p>
@@ -296,7 +296,7 @@ separated by commas, like so:</p>
 let y = [];
 let z = [1,]; // optional trailing comma
 </code></pre>
-<p>To explictly declare a variable is of a <code>list</code> type, you do so:</p>
+<p>To explicitly declare a variable is of a <code>list</code> type, you do so:</p>
 <pre><code class="language-rs">let some_list: [u64] = [];
 //             ^^^^^
 //              type
@@ -309,7 +309,7 @@ differences between the common syntax. These differences are:</p>
 <li>Singleton tuple : <code>(A,)</code></li>
 <li>Many membered tuple: <code>(A, B, C)</code> or <code>(A, B, C,)</code> </li>
 </ul>
-<p>To explictly declare a variable is of a <code>tuple</code> type, you do so:</p>
+<p>To explicitly declare a variable is of a <code>tuple</code> type, you do so:</p>
 <pre><code class="language-rs">let empty_tuple: (,) = (,);
 //               ^^^
 //               type
@@ -318,7 +318,7 @@ let some_tuple: (str, u32) = (&quot;string&quot;, 12);
 //              ^^^^^^^^^^
 //                 type
 </code></pre>
-<p><strong>Note</strong>: Trailing commas are not allowed within type defintions.</p>
+<p><strong>Note</strong>: Trailing commas are not allowed within type definitions.</p>
 <p>It's worth noting that tuples are fancy syntax for structures and are indexed
 using 'english' numerical phrasing like <code>first</code>, <code>second</code>, <code>third</code>, etc to access
 each member explicitly. Although, they are intended to be used mostly for pattern
@@ -332,7 +332,7 @@ allow you to do the same thing, and name the fields. Read more about patterns <a
 <li>Singleton set : <code>{A,}</code></li>
 <li>Many membered set: <code>{A, B, C}</code> or <code>{A, B, C,}</code> </li>
 </ul>
-<p>To explictly declare a variable is of a <code>set</code> type, you do so:</p>
+<p>To explicitly declare a variable is of a <code>set</code> type, you do so:</p>
 <pre><code class="language-rs">let some_map: {str} = {,};
 //            ^^^^^
 //            set type
@@ -344,7 +344,7 @@ allow you to do the same thing, and name the fields. Read more about patterns <a
 <li>Singleton map : <code>{A:1}</code> or <code>{A:1,}</code></li>
 <li>Many membered map: <code>{A: 1, B: 2, C: 3}</code> or <code>{A: 1, B: 2, C: 3,}</code> </li>
 </ul>
-<p>To explictly declare a variable is of a <code>map</code> type, you do so:</p>
+<p>To explicitly declare a variable is of a <code>map</code> type, you do so:</p>
 <pre><code class="language-rs">let some_map: {str: u8} = {:};
 //            ^^^^^^^^^
 //            map type
@@ -439,7 +439,7 @@ Each variant can be paired with some data, in the form of a comma-separated list
 </span>let handle_error = (error: NetworkError) =&gt; match error {
    NoBytesReceived =&gt; print(&quot;No bytes received, stopping&quot;);
    ConnectionTerminated =&gt; print(&quot;Connection was terminated&quot;);
-   Unexpected(err, code) =&gt; print(&quot;An unexpected error occured: &quot; + err + &quot; (&quot; + conv(code) + &quot;) &quot;);
+   Unexpected(err, code) =&gt; print(&quot;An unexpected error occurred: &quot; + err + &quot; (&quot; + conv(code) + &quot;) &quot;);
 };
 <span class="boring">}
 </span></code></pre></pre>
@@ -616,16 +616,14 @@ to the right. If the inference results in a different type to the right-hand sid
 <span class="boring">}
 </span></code></pre></pre>
 <p>The compiler will report this error as:</p>
-<pre><code>error: Failed to typecheck:
+<pre><code>error[0052]: Failed to typecheck: Mismatching types
 --&gt; 1:1 - 1:3
   |
-  |
 1 | &quot;2&quot; as char
-  | ^^^    
+  | ^^^  Cannot match type 'char' with 'str'.
   |
-Cannot match type 'char' with 'str'.
 </code></pre>
-<h2 id="usefullness"><a class="header" href="#usefullness">Usefullness</a></h2>
+<h2 id="usefulness"><a class="header" href="#usefulness">Usefulness</a></h2>
 <p>Why are type assertions when there is already type inference within the language? Well, sometimes the type inference
 system does not have enough information to infer the types of variables and declarations. 
 Type inference may not have enough information when dealing with functions that are generic, so it can sometimes
@@ -698,6 +696,13 @@ can also specifically return a type as you would normally do within a function b
 </span>let abs: (i64: x) =&gt; i64 = if x &lt; 0 { -x } else { x }
 <span class="boring">}
 </span></code></pre></pre>
+<p>You can also assign values since <code>if</code> statements are just blocks</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let my_value: i32 = if some_condition == x { 3 } else { 5 };
+<span class="boring">}
+</span></code></pre></pre>
 <p>However, you cannot do something like this:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
@@ -708,7 +713,7 @@ can also specifically return a type as you would normally do within a function b
 <p><strong>Note</strong>: here that you will not get a syntax error if you run this, but you will encounter an error during the interpretation stage of the program because the function may not have any return type since this has no definition
 of what should happen for the <code>else</code> case.</p>
 <h2 id="if-statements-and-enums-"><a class="header" href="#if-statements-and-enums-">If statements and Enums 🚧</a></h2>
-<p>You can destruct enum values within if statments using the <code>if-let</code> syntax, like so:</p>
+<p>You can destruct enum values within if statements using the <code>if-let</code> syntax, like so:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
@@ -880,7 +885,7 @@ to. Literal patterns follow the same syntax to binding patterns. Additionally, l
 binding elements such as the third condition in the <code>match</code> statement: <code>Some(n) =&gt; ...</code> where <code>n</code> is the bind
 to the literal.</p>
 <h2 id="destructuring-patterns"><a class="header" href="#destructuring-patterns">Destructuring patterns</a></h2>
-<p>Destructuring patterns are used to assign parts of an object to seperate variables within <code>let</code>, <code>for</code>, and
+<p>Destructuring patterns are used to assign parts of an object to separate variables within <code>let</code>, <code>for</code>, and
 <code>match</code>statements. A very simple example of a destructuring pattern in a <code>let</code> statement would be:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
@@ -918,10 +923,10 @@ for Point {x, y} in points.iter() {
 <span class="boring">}
 </span></code></pre></pre>
 <p>As you can see within the <code>for</code> loop, the pattern <code>Point{x, y}</code> is being used to
-destruct each point in the array into the seperate fields.</p>
+destruct each point in the array into the separate fields.</p>
 <h2 id="struct-patterns"><a class="header" href="#struct-patterns">Struct patterns</a></h2>
-<p>Struct patterns follow a simiar syntax to struct literals in Hash. You can discard and
-access fields available within a struct by specifiying the field name and then followed
+<p>Struct patterns follow a similar syntax to struct literals in Hash. You can discard and
+access fields available within a struct by specifying the field name and then followed
 by an optional right-hand side pattern to either rename the field or use a literal pattern.</p>
 <h3 id="basic"><a class="header" href="#basic">Basic</a></h3>
 <p>Struct patterns can be used in both literals and destructuring contexts. To destructure a struct
@@ -985,9 +990,9 @@ let compare_id = (car: Car, id: int) =&gt; {
 <span class="boring">}
 </span></code></pre></pre>
 <p>So, in the above example (which is admittedly unrealistic) we rename the cars <code>id</code> field to
-<code>car_id</code> by specifing the right-hand side binding pattern <code>= car_id</code>.</p>
+<code>car_id</code> by specifying the right-hand side binding pattern <code>= car_id</code>.</p>
 <h2 id="namespace-patterns"><a class="header" href="#namespace-patterns">Namespace patterns</a></h2>
-<p>Namspace patterns are very similar to struct patterns, but they can only be used within <code>let</code>
+<p>Namespace patterns are very similar to struct patterns, but they can only be used within <code>let</code>
 statements and when importing symbols from other modules. They follow a simple syntax:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
@@ -1036,7 +1041,7 @@ you should use a struct in that case which would solve the complexities of your 
 <span class="boring">}
 </span></code></pre></pre>
 <p>Now in this example, the compiler will assume that the size of <code>arr</code> is of length 2, and if not it will error since
-parts of the array are essentially unhandeled. To circumvent this issue you can use the <code>...</code>, (spread) operator which
+parts of the array are essentially unhandled. To circumvent this issue you can use the <code>...</code>, (spread) operator which
 used as a capturing group for some elements. With the example above, you can ignore all of the following elements after
 the first two by writing:</p>
 <pre><pre class="playground"><code class="language-rust">
@@ -1080,14 +1085,14 @@ For example, the following pattern will be reported as an error by the compiler:
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="loop-constructs"><a class="header" href="#loop-constructs">Loop constructs</a></h1>
 <p>Hash contains 3 distinct loop control constructs: <code>for</code>, <code>while</code> and <code>loop</code>. Each construct has
-a distinct usage case, but they can often be used interchangebly without hastle and are merely
+a distinct usage case, but they can often be used interchangeably without hassle and are merely
 a style choice.</p>
 <h2 id="general"><a class="header" href="#general">General</a></h2>
 <p>Each construct supports the basic <code>break</code> and <code>continue</code> loop control flow statements. These statements
 have the same properties as in many other languages like C, Rust, Python etc.</p>
-<p><code>break</code> - Using this control flow statements immediatelly terminates the loop and continues
+<p><code>break</code> - Using this control flow statements immediately terminates the loop and continues
 to any statement after the loop (if any).</p>
-<p><code>continue</code> - Using this control flow statement will immediatelly skip the current iteration
+<p><code>continue</code> - Using this control flow statement will immediately skip the current iteration
 of the loop body and move on to the next iteration (if any). Obviously, if no iterations
 remain, <code>continue</code> behaves just like <code>break</code>.</p>
 <h2 id="for-loop"><a class="header" href="#for-loop">For loop</a></h2>
@@ -1130,7 +1135,7 @@ So, for the example above, the <code>range</code> function is essentially a <cod
 <h3 id="basics-3"><a class="header" href="#basics-3">Basics</a></h3>
 <p>While loops are identical to 'while' constructs in other languages such as Java, C, JavaScript, etc.
 The loop will check a given conditional expression ( must evaluate to a <code>bool</code>), and if it evaluates
-to <code>true</code>, the loop body is executed, oterhwise the interpreter moves on. The loop body can also
+to <code>true</code>, the loop body is executed, otherwise the interpreter moves on. The loop body can also
 use loop control flow statements like <code>break</code> or <code>continue</code> to prematurely stop looping for a
 given condition.</p>
 <p>While loops can be defined as:</p>
@@ -1202,15 +1207,17 @@ while c -= 1 {
 <span class="boring">}
 </span></code></pre></pre>
 <p>Running the following code snippet produces the following error:</p>
-<pre><code>error: Failed to Typecheck:
+<pre><code>error[0052]: Failed to Typecheck: Mismatching types.
  --&gt; 3:7 - 3:12
-  |
+1 | let c: u32 = 100;
+2 |
 3 | while c -= 1 {
-  |       ^^^^^^
-  |       Expression does not have a boolean type 
+  |       ^^^^^^  Expression does not have a 'boolean' type 
+  |
+  = note: The type of the expression was `(,)` but expected an explicit `boolean`.
 </code></pre>
 <h2 id="loop"><a class="header" href="#loop">Loop</a></h2>
-<p>The loop consturct is the simplest of the three. The basic syntax for a loop is as follows:</p>
+<p>The loop construct is the simplest of the three. The basic syntax for a loop is as follows:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span>
@@ -1251,113 +1258,6 @@ loop {
 } // this will loop 10 times, and print only when c is even
 <span class="boring">}
 </span></code></pre></pre>
-<p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD:docs/loops.md</p>
-<h2 id="miscellaneous"><a class="header" href="#miscellaneous">Miscellaneous</a></h2>
-<p>As mentioned at the start of the introduction, the <code>loop</code> control flow keyword
-is the most universal control flow since to you can use <code>loop</code> to represent 
-both the <code>for</code> and <code>while</code> loops. </p>
-<h3 id="for-loop-transpillation"><a class="header" href="#for-loop-transpillation">for loop transpillation</a></h3>
-<p>Since <code>for</code> loops are used for iterators in hash, we transpile the construct into
-a primitive loop. An iterator can be traversed by calling the <code>next</code> function on the
-iterator. Since <code>next</code> returns a <code>Option</code> type, we need to check if there is a value
-or if it returns <code>None</code>. If a value does exist, we essentially perform an assignment
-to the pattern provided. If <code>None</code>, the branch immediatelly breaks the <code>for</code> loop.
-A rough outline of what the transpillation process for a <code>for</code> loop looks like:</p>
-<p>For example, the <code>for</code> loop can be expressed using <code>loop</code> as:</p>
-<pre><code>for &lt;pat&gt; in &lt;iterator&gt; {
-    &lt;block&gt;
-}
-
-// converted to
-loop {
-    match next(&lt;iterator&gt;) {
-        Some(&lt;pat&gt;) =&gt; &lt;block&gt;;
-        None        =&gt; break;
-    }
-}
-</code></pre>
-<p>An example of the transpillation process:</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>let i = [1,2,3,5].into_iter();
-
-for x in i {
-    print(&quot;x is &quot; + x);
-}
-
-
-// the same as...
-let i = [1,2,3,5].into_iter();
-
-loop {
-  match next(i) {
-    Some(x) =&gt; {print(&quot;x is &quot; + x)};
-    None =&gt; break;
-  }
-}
-<span class="boring">}
-</span></code></pre></pre>
-<h3 id="while-loop-internal-representation"><a class="header" href="#while-loop-internal-representation">While loop internal representation</a></h3>
-<p>In general, a while loop transpilation process occurs by transferring the looping 
-condition into a match block, which compares a boolean condition. If the boolean
-conditionb evaluates to <code>false</code>, the loop will immediatelly <code>break</code>. Otherwise
-the body expression is exected. A rough outline of what the transpillation process for a <code>while</code> loop looks like:</p>
-<pre><code>while &lt;condition&gt; {
-    &lt;block&gt;
-}
-
-// converted to
-loop {
-    match &lt;condition&gt; {
-        true  =&gt; &lt;block&gt;;
-        false =&gt; break;
-    }
-}
-</code></pre>
-<p>This is why the condition must explicitly return a boolean value.</p>
-<p>An example of a transpilation:</p>
-<p>And the <code>while</code> loop can be written using the <code>loop</code> directive
-like so:</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>let c = 0;
-
-loop {
-    match c &lt; 5 { // where 'x' is the condition for the while loop
-        true  =&gt; c += 1;
-        false =&gt; break;
-    }
-}
-
-// same as...
-let c = 0;
-
-while c &lt; 5 {
-    c+=1;
-}
-<span class="boring">}
-</span></code></pre></pre>
-<h3 id="loop-construct"><a class="header" href="#loop-construct">Loop construct</a></h3>
-<p>Similarly, the <code>loop</code> keyword is equivalent of someone writing a <code>while</code> loop that has
-a conditional expression that always evaluate to <code>true</code>; like so,</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>while true {
-    // do something
-}
-
-// is the same as...
-
-loop {
-    // do something
-}
-<span class="boring">}
-</span></code></pre></pre>
-<p>=======
-&gt;&gt;&gt;&gt;&gt;&gt;&gt; main:docs/src/basics/loops.md</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="functions"><a class="header" href="#functions">Functions</a></h1>
 <p><code>Hash</code> places a lot of emphasis on functions, which are first class citizens.
 Functions can be assigned to variables in the same way that any other value is stored, similar to languages like Python, JavaScript, etc.
@@ -1406,7 +1306,7 @@ that are essential for any <code>Hash</code> program to run.</p>
 │       └── c.hash
 └── main.hash
 </code></pre>
-<p>Modules in hash allow for a source to be split up into smaller code fragments, allowing for better source code organisation and maintainance.</p>
+<p>Modules in hash allow for a source to be split up into smaller code fragments, allowing for better source code organisation and maintenance.</p>
 <p>You can import modules by specifying the path relative to the current path. </p>
 <p>For example, if you wanted to include the modules <code>a</code>, <code>b</code>, and or <code>c</code> within your main file</p>
 <pre><pre class="playground"><code class="language-rust">
@@ -1472,15 +1372,8 @@ let p1 = LibPoint { x=2; y=3 };
 </span></code></pre></pre>
 <blockquote>
 <p><strong>Note</strong>: Naming is entirely up to the developer, there are no restrictions on naming
-except the language naming </p>
+except the language naming.</p>
 </blockquote>
-<h3 id="cyclic-imports-"><a class="header" href="#cyclic-imports-">Cyclic imports 🚧</a></h3>
-<p>Hash does not currently support cyclical dependencies within a project. Two modules within a project cannot be dependent on each other. As much as this might be an inconvienience, this is done to avoid &quot;behaviour&quot; which is implied by supporting cyclical imports. Other languages such as JavaScript support cyclical imports but can sometimes exhibit strange behaviour when using modules with cyclical imports.</p>
-<p>It is currently under consideration to lift this restriction, but at the same time avoid strange behaviours when supporting cyclical imports.</p>
-<p>If you attempt to run a module which has a cyclical import, the compiler will error and refuse to run the module like so:</p>
-<pre><code class="language-sh">$ hash -e ./module_with_cyclic_imports.hash
-error: Found circular dependency in &quot;./module_with_cyclic_imports.hash&quot;
-</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="standard-library"><a class="header" href="#standard-library">Standard library</a></h1>
 <h2 id="current-modules"><a class="header" href="#current-modules">Current modules</a></h2>
 <p>The standard library included the following modules:</p>
@@ -1493,13 +1386,13 @@ error: Found circular dependency in &quot;./module_with_cyclic_imports.hash&quot
 <h2 id="future-expansions-"><a class="header" href="#future-expansions-">Future expansions 🚧</a></h2>
 <p>These modules are currently under construction or proposed:</p>
 <ul>
-<li><code>time</code>: Useful constrcuts for time orientated data</li>
+<li><code>time</code>: Useful constructs for time orientated data</li>
 <li><code>sys</code>: System information about the host OS</li>
 <li><code>path</code>: Path utilities</li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="interpreter"><a class="header" href="#interpreter">Interpreter</a></h1>
 <p>This chapter is dedicated to documenting the current interpreter implementation, future plans and a
-very basic manual for how to use the interpeter (via commandline arguments).</p>
+very basic manual for how to use the interpreter (via commandline arguments).</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="interpretor-command-line-arguments"><a class="header" href="#interpretor-command-line-arguments">Interpretor command-line arguments</a></h1>
 <p>The <code>Hash</code> interpreter has a number of options that you can enable when running an instance of
 a VM. This page documents options and configurations that you can change when running a <code>Hash</code>
@@ -1524,8 +1417,12 @@ what it is doing at a given moment.</p>
 <h1 id="debug-modes"><a class="header" href="#debug-modes">Debug Modes</a></h1>
 <h2 id="ast-gen-generate-ast-from-input-file-only"><a class="header" href="#ast-gen-generate-ast-from-input-file-only"><code>ast-gen</code>: Generate AST from input file only</a></h2>
 <p>This mode tells the compiler to finish at the Abstract Syntax Tree stage and not produce any other kind of output.</p>
+<h3 id="-v--whilst-generating-ast-output-a-visual-representation-of-the-ast"><a class="header" href="#-v--whilst-generating-ast-output-a-visual-representation-of-the-ast"><code>-v</code> : Whilst generating AST, output a visual representation of the AST.</a></h3>
+<h3 id="-d--run-in-debug-mode"><a class="header" href="#-d--run-in-debug-mode"><code>-d</code> : Run in debug mode.</a></h3>
 <h2 id="ir-gen--generate-ir-from-input-file-only"><a class="header" href="#ir-gen--generate-ir-from-input-file-only"><code>ir-gen</code>: : Generate IR from input file only</a></h2>
 <p>This mode tells the compiler to finish at the IR stage and not produce any other kind of output.</p>
+<h3 id="-v--whilst-generating-ir-output-a-visual-representation-of-the-ir"><a class="header" href="#-v--whilst-generating-ir-output-a-visual-representation-of-the-ir"><code>-v</code> : Whilst generating IR, output a visual representation of the IR.</a></h3>
+<h3 id="-d--run-in-debug-mode-1"><a class="header" href="#-d--run-in-debug-mode-1"><code>-d</code> : Run in debug mode.</a></h3>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="compiler-backends"><a class="header" href="#compiler-backends">Compiler backends</a></h1>
 <h2 id="current-backend"><a class="header" href="#current-backend">Current backend</a></h2>
 <p>The current backend uses a Bytecode representation of the program which will run in a Virtual
@@ -1539,11 +1436,11 @@ LLVM.</p>
 primarily:</p>
 <ul>
 <li>We can have an interactive mode, execute code on the fly (with a minor performance hit)</li>
-<li>We can run compile-time code functions that are beyound just templates and constant
+<li>We can run compile-time code functions that are beyond just templates and constant
 folding expressions.</li>
 </ul>
 <h2 id="planned-backends"><a class="header" href="#planned-backends">Planned backends</a></h2>
-<p>Here are the currently planned backends, that will be worked on and stabalised some time in the future:</p>
+<p>Here are the currently planned backends, that will be worked on and stabilised some time in the future:</p>
 <table><thead><tr><th>Name</th><th>Description</th><th>Target platform</th><th>Status</th></tr></thead><tbody>
 <tr><td><code>x86_64_native</code></td><td>A native backend for generating executables and performing optimisations ourselves.</td><td><code>x86_64</code></td><td>❌</td></tr>
 <tr><td><code>x86_64_llvm</code></td><td>An backend powered by the might of LLVM backend.</td><td><code>x86_64</code></td><td>❌</td></tr>
@@ -1553,7 +1450,7 @@ folding expressions.</li>
 <tr><td><code>js</code></td><td>JS backend, generate TS/JavaScript code from the provided program.</td><td><code>browser/any</code></td><td>❌</td></tr>
 </tbody></table>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="advanced-concepts"><a class="header" href="#advanced-concepts">Advanced Concepts</a></h1>
-<p>This chapter of the book is dedicated to documenting advanced concepts for developers and contributers.</p>
+<p>This chapter of the book is dedicated to documenting advanced concepts for developers and contributors.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="compiler-internals"><a class="header" href="#compiler-internals">Compiler internals</a></h1>
 <p>This chapter is dedicated to documenting some core internal features of the compiler which
 are note worthy and should be examined by individuals who are interested in more than using
@@ -1562,13 +1459,13 @@ the language but contributing to it's development.</p>
 <p>As mentioned at the start of the <a href="advanced/./../basics/loops.html">loops</a> section in the <a href="advanced/./../basics/intro.html">basics</a> chapter, the <code>loop</code> control flow keyword
 is the most universal control flow since to you can use <code>loop</code> to represent 
 both the <code>for</code> and <code>while</code> loops. </p>
-<h3 id="for-loop-transpillation-1"><a class="header" href="#for-loop-transpillation-1">for loop transpillation</a></h3>
+<h3 id="for-loop-transpilation"><a class="header" href="#for-loop-transpilation">for loop transpilation</a></h3>
 <p>Since <code>for</code> loops are used for iterators in hash, we transpile the construct into
 a primitive loop. An iterator can be traversed by calling the <code>next</code> function on the
 iterator. Since <code>next</code> returns a <code>Option</code> type, we need to check if there is a value
 or if it returns <code>None</code>. If a value does exist, we essentially perform an assignment
-to the pattern provided. If <code>None</code>, the branch immediatelly breaks the <code>for</code> loop.
-A rough outline of what the transpillation process for a <code>for</code> loop looks like:</p>
+to the pattern provided. If <code>None</code>, the branch immediately breaks the <code>for</code> loop.
+A rough outline of what the transpilation process for a <code>for</code> loop looks like:</p>
 <p>For example, the <code>for</code> loop can be expressed using <code>loop</code> as:</p>
 <pre><code>for &lt;pat&gt; in &lt;iterator&gt; {
     &lt;block&gt;
@@ -1582,7 +1479,7 @@ loop {
     }
 }
 </code></pre>
-<p>An example of the transpillation process:</p>
+<p>An example of the transpilation process:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
@@ -1604,11 +1501,11 @@ loop {
 }
 <span class="boring">}
 </span></code></pre></pre>
-<h3 id="while-loop-internal-representation-1"><a class="header" href="#while-loop-internal-representation-1">While loop internal representation</a></h3>
+<h3 id="while-loop-internal-representation"><a class="header" href="#while-loop-internal-representation">While loop internal representation</a></h3>
 <p>In general, a while loop transpilation process occurs by transferring the looping 
 condition into a match block, which compares a boolean condition. If the boolean
-conditionb evaluates to <code>false</code>, the loop will immediatelly <code>break</code>. Otherwise
-the body expression is exected. A rough outline of what the transpillation process for a <code>while</code> loop looks like:</p>
+condition evaluates to <code>false</code>, the loop will immediately <code>break</code>. Otherwise
+the body expression is expected. A rough outline of what the transpilation process for a <code>while</code> loop looks like:</p>
 <pre><code>while &lt;condition&gt; {
     &lt;block&gt;
 }
@@ -1647,7 +1544,7 @@ while c &lt; 5 {
 </span></code></pre></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="if-statement-transpilation"><a class="header" href="#if-statement-transpilation">If Statement transpilation</a></h1>
 <p>As mentioned at the start of the conditionals section in the basics chapter, if statements can be
-represnted as <code>match</code> statements. This is especially adviced when you have many <code>if</code> branched and 
+represented as <code>match</code> statements. This is especially advised when you have many <code>if</code> branched and 
 more complicated branch conditions.</p>
 <p>Internally, the compiler will convert <code>if</code> statements into match cases so that it has to do
 less work in the following stages of compilation.</p>
@@ -1671,7 +1568,7 @@ match true {
     _ =&gt; block_n;
 }
 </code></pre>
-<p>For example, the following <code>if</code> statment will be converted as follows:</p>
+<p>For example, the following <code>if</code> statement will be converted as follows:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
@@ -1719,6 +1616,7 @@ match true {
 <span class="boring">}
 </span></code></pre></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="type-inference-1"><a class="header" href="#type-inference-1">Type inference</a></h1>
+<p>🚧 Still under construction! 🚧 </p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="future-features"><a class="header" href="#future-features">Future features</a></h1>
 <p>This page is dedicated to documenting future planned features within the language.</p>
 

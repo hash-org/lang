@@ -175,7 +175,7 @@ Each variant can be paired with some data, in the form of a comma-separated list
 </span>let handle_error = (error: NetworkError) =&gt; match error {
    NoBytesReceived =&gt; print(&quot;No bytes received, stopping&quot;);
    ConnectionTerminated =&gt; print(&quot;Connection was terminated&quot;);
-   Unexpected(err, code) =&gt; print(&quot;An unexpected error occured: &quot; + err + &quot; (&quot; + conv(code) + &quot;) &quot;);
+   Unexpected(err, code) =&gt; print(&quot;An unexpected error occurred: &quot; + err + &quot; (&quot; + conv(code) + &quot;) &quot;);
 };
 <span class="boring">}
 </span></code></pre></pre>

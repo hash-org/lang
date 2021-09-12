@@ -148,14 +148,14 @@
                     <main>
                         <h1 id="loop-constructs"><a class="header" href="#loop-constructs">Loop constructs</a></h1>
 <p>Hash contains 3 distinct loop control constructs: <code>for</code>, <code>while</code> and <code>loop</code>. Each construct has
-a distinct usage case, but they can often be used interchangebly without hastle and are merely
+a distinct usage case, but they can often be used interchangeably without hassle and are merely
 a style choice.</p>
 <h2 id="general"><a class="header" href="#general">General</a></h2>
 <p>Each construct supports the basic <code>break</code> and <code>continue</code> loop control flow statements. These statements
 have the same properties as in many other languages like C, Rust, Python etc.</p>
-<p><code>break</code> - Using this control flow statements immediatelly terminates the loop and continues
+<p><code>break</code> - Using this control flow statements immediately terminates the loop and continues
 to any statement after the loop (if any).</p>
-<p><code>continue</code> - Using this control flow statement will immediatelly skip the current iteration
+<p><code>continue</code> - Using this control flow statement will immediately skip the current iteration
 of the loop body and move on to the next iteration (if any). Obviously, if no iterations
 remain, <code>continue</code> behaves just like <code>break</code>.</p>
 <h2 id="for-loop"><a class="header" href="#for-loop">For loop</a></h2>
@@ -198,7 +198,7 @@ So, for the example above, the <code>range</code> function is essentially a <cod
 <h3 id="basics-1"><a class="header" href="#basics-1">Basics</a></h3>
 <p>While loops are identical to 'while' constructs in other languages such as Java, C, JavaScript, etc.
 The loop will check a given conditional expression ( must evaluate to a <code>bool</code>), and if it evaluates
-to <code>true</code>, the loop body is executed, oterhwise the interpreter moves on. The loop body can also
+to <code>true</code>, the loop body is executed, otherwise the interpreter moves on. The loop body can also
 use loop control flow statements like <code>break</code> or <code>continue</code> to prematurely stop looping for a
 given condition.</p>
 <p>While loops can be defined as:</p>
@@ -270,15 +270,17 @@ while c -= 1 {
 <span class="boring">}
 </span></code></pre></pre>
 <p>Running the following code snippet produces the following error:</p>
-<pre><code>error: Failed to Typecheck:
+<pre><code>error[0052]: Failed to Typecheck: Mismatching types.
  --&gt; 3:7 - 3:12
-  |
+1 | let c: u32 = 100;
+2 |
 3 | while c -= 1 {
-  |       ^^^^^^
-  |       Expression does not have a boolean type 
+  |       ^^^^^^  Expression does not have a 'boolean' type 
+  |
+  = note: The type of the expression was `(,)` but expected an explicit `boolean`.
 </code></pre>
 <h2 id="loop"><a class="header" href="#loop">Loop</a></h2>
-<p>The loop consturct is the simplest of the three. The basic syntax for a loop is as follows:</p>
+<p>The loop construct is the simplest of the three. The basic syntax for a loop is as follows:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span>
@@ -319,113 +321,6 @@ loop {
 } // this will loop 10 times, and print only when c is even
 <span class="boring">}
 </span></code></pre></pre>
-<p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD:docs/loops.md</p>
-<h2 id="miscellaneous"><a class="header" href="#miscellaneous">Miscellaneous</a></h2>
-<p>As mentioned at the start of the introduction, the <code>loop</code> control flow keyword
-is the most universal control flow since to you can use <code>loop</code> to represent 
-both the <code>for</code> and <code>while</code> loops. </p>
-<h3 id="for-loop-transpillation"><a class="header" href="#for-loop-transpillation">for loop transpillation</a></h3>
-<p>Since <code>for</code> loops are used for iterators in hash, we transpile the construct into
-a primitive loop. An iterator can be traversed by calling the <code>next</code> function on the
-iterator. Since <code>next</code> returns a <code>Option</code> type, we need to check if there is a value
-or if it returns <code>None</code>. If a value does exist, we essentially perform an assignment
-to the pattern provided. If <code>None</code>, the branch immediatelly breaks the <code>for</code> loop.
-A rough outline of what the transpillation process for a <code>for</code> loop looks like:</p>
-<p>For example, the <code>for</code> loop can be expressed using <code>loop</code> as:</p>
-<pre><code>for &lt;pat&gt; in &lt;iterator&gt; {
-    &lt;block&gt;
-}
-
-// converted to
-loop {
-    match next(&lt;iterator&gt;) {
-        Some(&lt;pat&gt;) =&gt; &lt;block&gt;;
-        None        =&gt; break;
-    }
-}
-</code></pre>
-<p>An example of the transpillation process:</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>let i = [1,2,3,5].into_iter();
-
-for x in i {
-    print(&quot;x is &quot; + x);
-}
-
-
-// the same as...
-let i = [1,2,3,5].into_iter();
-
-loop {
-  match next(i) {
-    Some(x) =&gt; {print(&quot;x is &quot; + x)};
-    None =&gt; break;
-  }
-}
-<span class="boring">}
-</span></code></pre></pre>
-<h3 id="while-loop-internal-representation"><a class="header" href="#while-loop-internal-representation">While loop internal representation</a></h3>
-<p>In general, a while loop transpilation process occurs by transferring the looping 
-condition into a match block, which compares a boolean condition. If the boolean
-conditionb evaluates to <code>false</code>, the loop will immediatelly <code>break</code>. Otherwise
-the body expression is exected. A rough outline of what the transpillation process for a <code>while</code> loop looks like:</p>
-<pre><code>while &lt;condition&gt; {
-    &lt;block&gt;
-}
-
-// converted to
-loop {
-    match &lt;condition&gt; {
-        true  =&gt; &lt;block&gt;;
-        false =&gt; break;
-    }
-}
-</code></pre>
-<p>This is why the condition must explicitly return a boolean value.</p>
-<p>An example of a transpilation:</p>
-<p>And the <code>while</code> loop can be written using the <code>loop</code> directive
-like so:</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>let c = 0;
-
-loop {
-    match c &lt; 5 { // where 'x' is the condition for the while loop
-        true  =&gt; c += 1;
-        false =&gt; break;
-    }
-}
-
-// same as...
-let c = 0;
-
-while c &lt; 5 {
-    c+=1;
-}
-<span class="boring">}
-</span></code></pre></pre>
-<h3 id="loop-construct"><a class="header" href="#loop-construct">Loop construct</a></h3>
-<p>Similarly, the <code>loop</code> keyword is equivalent of someone writing a <code>while</code> loop that has
-a conditional expression that always evaluate to <code>true</code>; like so,</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>while true {
-    // do something
-}
-
-// is the same as...
-
-loop {
-    // do something
-}
-<span class="boring">}
-</span></code></pre></pre>
-<p>=======
-&gt;&gt;&gt;&gt;&gt;&gt;&gt; main:docs/src/basics/loops.md</p>
 
                     </main>
 
