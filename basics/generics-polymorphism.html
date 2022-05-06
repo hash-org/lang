@@ -160,7 +160,7 @@ These can be used anywhere in the following type expression.</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let merge&lt;str&gt; = (a, b) =&gt; str_concat(a, b);
+</span>merge&lt;str&gt; := (a, b) =&gt; str_concat(a, b);
 <span class="boring">}
 </span></code></pre></pre>
 <p>They can also be implemented for a generic type bound.
@@ -168,7 +168,7 @@ The following code implements <code>merge</code> for any type that implements <c
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let merge&lt;T&gt; where add&lt;T&gt; = (a, b) =&gt; a + b;
+</span>merge&lt;T&gt; where add&lt;T&gt; := (a, b) =&gt; a + b;
 <span class="boring">}
 </span></code></pre></pre>
 <p>This is called <em>blanket implementation</em> and it can be done using the <code>where</code> keyword.
@@ -176,8 +176,8 @@ Note that the code might contain multiple overlapping implementations of the sam
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let merge&lt;T&gt; where add&lt;T&gt; = (a, b) =&gt; a + b;
-let merge&lt;u32&gt; = (a, b) =&gt; a + b + 42; // But u32 also implements add!
+</span>merge&lt;T&gt; where add&lt;T&gt; := (a, b) =&gt; a + b;
+merge&lt;u32&gt; := (a, b) =&gt; a + b + 42; // But u32 also implements add!
 <span class="boring">}
 </span></code></pre></pre>
 <p>In that case, for each function trait resolution, the <em>last-declared implementation</em> of the trait has precedence:</p>
@@ -195,7 +195,7 @@ This is the case for all operators in Hash, which are defined in the <code>op</c
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let simon_says = (what: str) =&gt; merge(&quot;Simon says &quot;, what); // inferred to merge&lt;str&gt;
+</span>simon_says := (what: str) =&gt; merge(&quot;Simon says &quot;, what); // inferred to merge&lt;str&gt;
 <span class="boring">}
 </span></code></pre></pre>
 <p>This is done by looking at:</p>
@@ -208,7 +208,7 @@ For example,</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let skip&lt;I&gt; for next&lt;I, ?&gt; = ...;
+</span>skip&lt;I&gt; where next&lt;I, ?&gt; := ...;
 <span class="boring">}
 </span></code></pre></pre>
 <p>says &quot;implement <code>skip&lt;I&gt;</code> for any <code>I</code> that has an implementation <code>next&lt;I, T&gt;</code>, where <code>T</code> is any type&quot;.
@@ -232,9 +232,9 @@ Each instantiation of a generic type is unique and is treated as a completely se
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let print_result = (r: Result&lt;u32, str&gt;) =&gt; print(conv(r));
+</span>print_result := (r: Result&lt;u32, str&gt;) =&gt; print(conv(r));
 
-let my_res: Result&lt;u16, str&gt; = Ok(&quot;Hello there!&quot;);
+my_res: Result&lt;u16, str&gt; = Ok(&quot;Hello there!&quot;);
 print_result(my_res); // Type mis // Error: Type mismatch: was expecting `Result&lt;u32, str&gt;`, got `Result&lt;u16, str&gt;`.
 <span class="boring">}
 </span></code></pre></pre>
@@ -254,27 +254,27 @@ It can be inferred by the types of the contents, or the expected return value, o
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let abc = Vector3 { x = 'a'; y = 'b'; z = 'c' }; // Vector3&lt;char&gt;
-let maybe_foo = Some(&quot;foo&quot;); // Option&lt;str&gt;
+</span>abc := Vector3 { x = 'a'; y = 'b'; z = 'c' }; // Vector3&lt;char&gt;
+maybe_foo := Some(&quot;foo&quot;); // Option&lt;str&gt;
 <span class="boring">}
 </span></code></pre></pre>
 <p>If you want a generic type argument to be inferred, but want to specify another one, you can use the <code>_</code> syntax:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let char_list = &quot;Hello world&quot;.iter().collect&lt;_, [char]&gt;();
+</span>char_list := &quot;Hello world&quot;.iter().collect&lt;_, [char]&gt;();
 <span class="boring">}
 </span></code></pre></pre>
 <h2 id="generic-parameters"><a class="header" href="#generic-parameters">Generic parameters</a></h2>
 <p>Generic parameters in Hash work slightly differently than they do in other languages.</p>
 <p>For example, one can write:</p>
-<pre><code class="language-rs">let next&lt;Enumerate&lt;I&gt;, (usize, T)&gt; where next&lt;I, T&gt;;
+<pre><code class="language-rs">next&lt;Enumerate&lt;I&gt;, (usize, T)&gt; where next&lt;I, T&gt;;
 </code></pre>
 <p>This implements the <code>next</code> trait from the standard library for the <code>Enumerate</code> struct.
 Notice that the <code>Enumerate</code> struct takes a generic parameter, which is denoted with <code>I</code>.
 Type variables in type argument lists can appear nested within other generic types.
 When a type variable appears anywhere within a type argument list, it is implicitly &quot;declared&quot;.</p>
-<pre><code class="language-rs">let next&lt;WeirdIterator&lt;I&gt;, I&gt; where next&lt;I, ?&gt;;
+<pre><code class="language-rs">next&lt;WeirdIterator&lt;I&gt;, I&gt; where next&lt;I, ?&gt;;
 </code></pre>
 <p>The above snippet implements <code>next</code> for a <code>WeirdIterator</code> struct, generic over some type <code>I</code>.
 The element of the iterator is of the same type <code>I</code>.</p>

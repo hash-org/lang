@@ -156,9 +156,9 @@
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>// main.hash
-let a = import(&quot;lib/a&quot;);
-let b = import(&quot;lib/b&quot;);
-let c = import(&quot;lib/sub/c&quot;);
+a := import(&quot;lib/a&quot;);
+b := import(&quot;lib/b&quot;);
+c := import(&quot;lib/sub/c&quot;);
 <span class="boring">}
 </span></code></pre></pre>
 <p>By doing so, you are placing everything that is defined within each of those modules under
@@ -183,9 +183,9 @@ struct Point = {
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>// main.hash
-let a = import(&quot;lib/a&quot;);
+a := import(&quot;lib/a&quot;);
 
-let p1 = a::Point { x=2; y=3 };
+p1 := a::Point { x=2; y=3 };
 
 print(p1.x); // 2
 print(p1.y); // 3
@@ -198,9 +198,9 @@ follows:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let {Point} = import(&quot;lib/a&quot;);
+</span>{Point} := import(&quot;lib/a&quot;);
 
-let p1 = Point { x=2; y=3 };
+p1 := Point { x=2; y=3 };
 <span class="boring">}
 </span></code></pre></pre>
 <p>In case you have a member of your current module already reserving a name, you
@@ -208,9 +208,9 @@ can rename the exported members to your liking:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let {Point: LibPoint} = import(&quot;lib/a&quot;);
+</span>{Point: LibPoint} = import(&quot;lib/a&quot;);
 
-let p1 = LibPoint { x=2; y=3 };
+p1 := LibPoint { x=2; y=3 };
 <span class="boring">}
 </span></code></pre></pre>
 <blockquote>

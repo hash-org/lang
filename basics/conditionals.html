@@ -173,7 +173,7 @@ conditional statements. To use the <code>else-if</code> syntax, you do so like t
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let a: u8 = 12;
+</span>a: u8 = 12;
 
 if a { print(&quot;a&quot;) }
 <span class="boring">}
@@ -198,21 +198,21 @@ can also specifically return a type as you would normally do within a function b
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let abs: (i64: x) =&gt; i64 = if x &lt; 0 { -x } else { x }
+</span>abs: (i64: x) =&gt; i64 = if x &lt; 0 { -x } else { x }
 <span class="boring">}
 </span></code></pre></pre>
 <p>You can also assign values since <code>if</code> statements are just blocks</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let my_value: i32 = if some_condition == x { 3 } else { 5 };
+</span>my_value: i32 = if some_condition == x { 3 } else { 5 };
 <span class="boring">}
 </span></code></pre></pre>
 <p>However, you cannot do something like this:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let abs: (i64: x) =&gt; i64 = if x &lt; 0 { -x }
+</span>abs: (i64: x) =&gt; i64 = if x &lt; 0 { -x }
 <span class="boring">}
 </span></code></pre></pre>
 <p><strong>Note</strong>: here that you will not get a syntax error if you run this, but you will encounter an error during the interpretation stage of the program because the function may not have any return type since this has no definition
@@ -228,7 +228,7 @@ of what should happen for the <code>else</code> case.</p>
 };
 
 // mission critical, program should exit if it failed
-let result: Result&lt;u16, str&gt; = Ok(12);
+result: Result&lt;u16, str&gt; = Ok(12);
 
 if let Ok(value) = result  { 
   print(&quot;Got '&quot; + conv(value) + &quot;' from operation&quot;) 
@@ -242,14 +242,14 @@ block which is essentially treated as if it was a functional body, like so:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let f: str = &quot;file.txt&quot;;
+</span>f: str = &quot;file.txt&quot;;
 
-if { let a = open(f); is_ok(a) } {
+if { a = open(f); is_ok(a) } {
     // run if is_ok(a) returns true
 }
 
 // the above statement can also be written as
-let a = open(f);
+a = open(f);
 
 if is_ok(a) {
     // run if is_ok(a) returns true
@@ -269,9 +269,9 @@ of <code>a</code> within the <code>if</code> statement body or later on in the p
 <span class="boring">#![allow(unused)]
 </span>
 <span class="boring">fn main() {
-</span>let a = input&lt;u8&gt;();
+</span>a := input&lt;u8&gt;();
 
-let m2 = match a {
+m2 := match a {
   1 =&gt; &quot;one&quot;;
   2 =&gt; &quot;two&quot;;
   _ =&gt; &quot;not one or two&quot;;
@@ -279,13 +279,13 @@ let m2 = match a {
 
 // Or as a function
 
-let convert: (x: u8) =&gt; str = (x) =&gt; match x {
+convert: (x: u8) =&gt; str = (x) =&gt; match x {
   1 =&gt; &quot;one&quot;;
   2 =&gt; &quot;two&quot;;
   _ =&gt; &quot;not one or two&quot;;
 }
 
-let m = convert(input&lt;u8&gt;());
+m := convert(input&lt;u8&gt;());
 <span class="boring">}
 </span></code></pre></pre>
 <p>The <code>_</code> case is a special wildcard case that captures any case. This is essentially synonymous with the <code>else</code> clause in many other languages like Python or JavaScript. For conventional purposes, it should be included when creating a <code>match</code> statement where the type value is not reasonably bounded (like an integer). One subtle difference with the <code>match</code> syntax is you must always explicitly define a <code>_</code> case. This language behaviour is designed to enforce that <code>explicit</code> is better than <code>implicit</code>. So, if you know that a program should never hit
@@ -305,7 +305,7 @@ the default case:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let convert: (x: u8) =&gt; str = (x) =&gt; match x {
+</span>convert: (x: u8) =&gt; str = (x) =&gt; match x {
   _ =&gt; &quot;not one or two&quot;;
   1 =&gt; &quot;one&quot;;
   2 =&gt; &quot;two&quot;;
@@ -326,7 +326,7 @@ For example,</p>
 ...
 
 // mission critical, program should exit if it failed
-let result: Result&lt;u16, str&gt; = Ok(12);
+result: Result&lt;u16, str&gt; = Ok(12);
 
 match result {
   Ok(value) =&gt; print(&quot;Got '&quot; + conv(value) + &quot;' from operation&quot;);
@@ -339,7 +339,7 @@ writing the following syntax:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let x: u32 = input&lt;u32&gt;();
+</span>x: u32 = input&lt;u32&gt;();
 
 match x {
   1 | 2 | 3       =&gt; print(&quot;x is 1, 2, or 3&quot;);
@@ -353,8 +353,8 @@ can do so using the <code>match-if</code> syntax, like so:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let x: u32 = input&lt;u32&gt;();
-let y: bool = true;
+</span>x: u32 = input&lt;u32&gt;();
+y: bool = true;
 
 match x {
   1 | 2 | 3 if y =&gt; print(&quot;x is 1, 2, or 3 when y is true&quot;);

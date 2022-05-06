@@ -155,7 +155,7 @@ literal expression that is assigned to the name.</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let x: u8;
+</span>x: u8;
 x = 3;
 <span class="boring">}
 </span></code></pre></pre>
@@ -163,7 +163,7 @@ x = 3;
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let x: u8;
+</span>x: u8;
 
 print(x) // :^( error
 <span class="boring">}
@@ -172,7 +172,7 @@ print(x) // :^( error
 <pre><code>error[0057]: Failed to typecheck: Un-initialised symbol
  --&gt; src/file.hash:3:7
   |
-1 | let x:u8;
+1 | x:u8;
   |     ^ symbol 'x' declared here without initialisation.
   |
   = note: Consider giving 'x' an initial value.
@@ -184,7 +184,7 @@ print(x) // :^( error
 </code></pre>
 <h2 id="type-inference"><a class="header" href="#type-inference">Type inference</a></h2>
 <p>The type of a variable, if not given, is automatically inferred by the value.
-In <code>let a: X = b</code>, if the type of <code>b</code> is not <code>X</code>, the language produces an error.</p>
+In <code>a: X = b</code>, if the type of <code>b</code> is not <code>X</code>, the language produces an error.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="operators--symbols"><a class="header" href="#operators--symbols">Operators &amp; Symbols</a></h1>
 <p>This section contains all of the syntactic operators that are available within Hash</p>
 <h2 id="general-operators-"><a class="header" href="#general-operators-">General operators 🚧</a></h2>
@@ -230,7 +230,7 @@ a specific group of operations or are used to convey meaning within the language
 <tr><td><code>@</code></td><td>N/A</td><td>Pattern value binding</td><td>N/A</td></tr>
 <tr><td><code>...</code></td><td>N/A</td><td>Spread operator (Not-implemented)</td><td><code>range</code>?</td></tr>
 <tr><td><code>;</code></td><td><code>expression;</code></td><td>statement terminator</td><td>N/A</td></tr>
-<tr><td><code>?</code></td><td><code>let k&lt;T&gt; where s&lt;T, ?&gt; = ...</code></td><td>Type argument wildcard</td><td>N/A</td></tr>
+<tr><td><code>?</code></td><td><code>k&lt;T&gt; where s&lt;T, ?&gt; := ...</code></td><td>Type argument wildcard</td><td>N/A</td></tr>
 <tr><td><code>-&gt;</code></td><td><code>(str) -&gt; usize</code></td><td>Function return type notation</td><td>N/A</td></tr>
 <tr><td><code>=&gt;</code></td><td><code>(a) =&gt; a + 2</code></td><td>Function Body definition</td><td>N/A</td></tr>
 </tbody></table>
@@ -264,7 +264,8 @@ a specific group of operations or are used to convey meaning within the language
 <li><code>[A]</code>: a list containing type A</li>
 <li><code>{A:B}</code>: a map between type A and type B</li>
 <li><code>(A, B, C)</code>: a tuple containing types A, B and C. Elements can be accessed by dot notation (<code>my_tuple.first</code>)</li>
-<li><code>void</code>: the empty type. Has a corresponding <code>void</code> value.</li>
+<li><code>(a: A, b: B, c: C)</code> a tuple which contains named members a, b, c with types A, B, C respectively.</li>
+<li><code>void</code> or <code>()</code>: the empty type. Has a corresponding <code>void</code> value.</li>
 <li><code>never</code>: a type which can never be instantiated. Used, for example, for functions that never return, like <code>panic</code>.</li>
 </ul>
 <h2 id="numbers"><a class="header" href="#numbers">Numbers</a></h2>
@@ -283,14 +284,14 @@ when storing them. These types are intended to be used when working with heavy m
 <h3 id="list"><a class="header" href="#list">List</a></h3>
 <p>Lists are denoted using the the common square bracket syntax where the values are
 separated by commas, like so:</p>
-<pre><code class="language-rs">let x = [1,2,3,4,5,6]; // multiple elements
-let y = [];
-let z = [1,]; // optional trailing comma
+<pre><code class="language-rs">x := [1,2,3,4,5,6]; // multiple elements
+y := [];
+z := [1,]; // optional trailing comma
 </code></pre>
 <p>To explicitly declare a variable is of a <code>list</code> type, you do so:</p>
-<pre><code class="language-rs">let some_list: [u64] = [];
-//             ^^^^^
-//              type
+<pre><code class="language-rs">some_list: [u64] = [];
+//         ^^^^^
+//          type
 </code></pre>
 <h3 id="tuple"><a class="header" href="#tuple">Tuple</a></h3>
 <p>Tuples have a familiar syntax with many other languages, but exhibit two distinct
@@ -301,14 +302,17 @@ differences between the common syntax. These differences are:</p>
 <li>Many membered tuple: <code>(A, B, C)</code> or <code>(A, B, C,)</code> </li>
 </ul>
 <p>To explicitly declare a variable is of a <code>tuple</code> type, you do so:</p>
-<pre><code class="language-rs">let empty_tuple: (,) = (,);
-let empty_tuple: () = ();
-//               ^^^
-//               type
+<pre><code class="language-rs">empty_tuple: (,) = (,);
+//           ^^^
+//           type
 
-let some_tuple: (str, u32) = (&quot;string&quot;, 12);
-//              ^^^^^^^^^^
-//                 type
+empty_tuple: () = ();
+//           ^^
+//          type
+
+some_tuple: (str, u32) = (&quot;string&quot;, 12);
+//          ^^^^^^^^^^
+//             type
 </code></pre>
 <p><strong>Note</strong>: Trailing commas are not allowed within type definitions.</p>
 <p>It's worth noting that tuples are fancy syntax for structures and are indexed
@@ -317,6 +321,44 @@ each member explicitly. Although, they are intended to be used mostly for patter
 matching, you can access members of tuples like so. However, you will not be able to access members of tuples that are larger than 10 elements in size. 
 If this is the case, you should consider using a structural data type which will
 allow you to do the same thing, and name the fields. Read more about patterns <a href="basics/pattern-matching.html">here</a>.</p>
+<h3 id="named-tuples"><a class="header" href="#named-tuples">Named tuples</a></h3>
+<p>Named tuples are a variant of tuples that specifies field names for each field within the field. This can 
+be done for various purposes which might make some definitions of types convenient and not requiring 
+creating a <code>struct</code> for each sub-type. For example:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>struct Comment {
+    contents: str,
+    anchor: (
+        start: u32,
+        end: u32
+    ),
+    edited: bool,
+    author_id: str,
+    ...
+};
+
+// Which then means that u can create the `Comment` type and then access fields like so:
+
+comment := Comment { .. };
+
+print(abs(comment.anchor.start - comment.anchor.end));
+<span class="boring">}
+</span></code></pre></pre>
+<p>To initialise a struct that has named fields, this can be done like so:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>anchor := (start := 1, end := 2 ); // :t anchor -&gt; (start: u32, end: u32)
+
+// This can also be done like so (but shouldn't be used):
+anchor: (start: u32, end: u32) = (1, 2);
+<span class="boring">}
+</span></code></pre></pre>
+<p>Named tuples can be coerced into <em>unnamed</em> tuples if the type layout of both tuples matches. 
+However, this is not recommended because specifically naming tuples implies that the type
+cares about the names of the fields rather than simply being a structural type.</p>
 <h3 id="set"><a class="header" href="#set">Set</a></h3>
 <p>Like tuples, sets have the same syntactic differences:</p>
 <ul>
@@ -325,9 +367,9 @@ allow you to do the same thing, and name the fields. Read more about patterns <a
 <li>Many membered set: <code>{A, B, C}</code> or <code>{A, B, C,}</code> </li>
 </ul>
 <p>To explicitly declare a variable is of a <code>set</code> type, you do so:</p>
-<pre><code class="language-rs">let some_map: {str} = {,};
-//            ^^^^^
-//            set type
+<pre><code class="language-rs">some_map: {str} = {,};
+//        ^^^^^
+//       set type
 </code></pre>
 <h3 id="map"><a class="header" href="#map">Map</a></h3>
 <p>Like tuples, sets have the same syntactic differences:</p>
@@ -337,9 +379,9 @@ allow you to do the same thing, and name the fields. Read more about patterns <a
 <li>Many membered map: <code>{A: 1, B: 2, C: 3}</code> or <code>{A: 1, B: 2, C: 3,}</code> </li>
 </ul>
 <p>To explicitly declare a variable is of a <code>map</code> type, you do so:</p>
-<pre><code class="language-rs">let some_map: {str: u8} = {:};
-//            ^^^^^^^^^
-//            map type
+<pre><code class="language-rs">some_map: {str: u8} = {:};
+//        ^^^^^^^^^
+//        map type
 </code></pre>
 <h2 id="special-types"><a class="header" href="#special-types">Special types</a></h2>
 <ul>
@@ -381,7 +423,7 @@ Default values can be omitted, but can also be overridden.</p>
    name: str;
 }
 
-let d = Dog { name = &quot;Bob&quot; };
+d := Dog { name = &quot;Bob&quot; };
 
 print(d); // Dog { name = &quot;Bob&quot;; age = 42; }
 <span class="boring">}
@@ -391,7 +433,7 @@ An argument of type <code>Dog</code> can only be fulfilled by an instance of <co
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let dog_name = (dog: Dog) =&gt; dog.name;
+</span>dog_name := (dog: Dog) =&gt; dog.name;
 
 struct FakeDog = {
    age: u32 = 42;
@@ -421,14 +463,14 @@ Each variant can be paired with some data, in the form of a comma-separated list
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let err = NetworkError.Unexpected(&quot;something went terribly wrong&quot;, 32);
+</span>err := NetworkError.Unexpected(&quot;something went terribly wrong&quot;, 32);
 <span class="boring">}
 </span></code></pre></pre>
 <p>They can be <code>match</code>ed to discover what they contain:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let handle_error = (error: NetworkError) =&gt; match error {
+</span>handle_error := (error: NetworkError) =&gt; match error {
    NoBytesReceived =&gt; print(&quot;No bytes received, stopping&quot;);
    ConnectionTerminated =&gt; print(&quot;Connection was terminated&quot;);
    Unexpected(err, code) =&gt; print(&quot;An unexpected error occurred: &quot; + err + &quot; (&quot; + conv(code) + &quot;) &quot;);
@@ -459,7 +501,7 @@ These can be used anywhere in the following type expression.</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let merge&lt;str&gt; = (a, b) =&gt; str_concat(a, b);
+</span>merge&lt;str&gt; := (a, b) =&gt; str_concat(a, b);
 <span class="boring">}
 </span></code></pre></pre>
 <p>They can also be implemented for a generic type bound.
@@ -467,7 +509,7 @@ The following code implements <code>merge</code> for any type that implements <c
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let merge&lt;T&gt; where add&lt;T&gt; = (a, b) =&gt; a + b;
+</span>merge&lt;T&gt; where add&lt;T&gt; := (a, b) =&gt; a + b;
 <span class="boring">}
 </span></code></pre></pre>
 <p>This is called <em>blanket implementation</em> and it can be done using the <code>where</code> keyword.
@@ -475,8 +517,8 @@ Note that the code might contain multiple overlapping implementations of the sam
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let merge&lt;T&gt; where add&lt;T&gt; = (a, b) =&gt; a + b;
-let merge&lt;u32&gt; = (a, b) =&gt; a + b + 42; // But u32 also implements add!
+</span>merge&lt;T&gt; where add&lt;T&gt; := (a, b) =&gt; a + b;
+merge&lt;u32&gt; := (a, b) =&gt; a + b + 42; // But u32 also implements add!
 <span class="boring">}
 </span></code></pre></pre>
 <p>In that case, for each function trait resolution, the <em>last-declared implementation</em> of the trait has precedence:</p>
@@ -494,7 +536,7 @@ This is the case for all operators in Hash, which are defined in the <code>op</c
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let simon_says = (what: str) =&gt; merge(&quot;Simon says &quot;, what); // inferred to merge&lt;str&gt;
+</span>simon_says := (what: str) =&gt; merge(&quot;Simon says &quot;, what); // inferred to merge&lt;str&gt;
 <span class="boring">}
 </span></code></pre></pre>
 <p>This is done by looking at:</p>
@@ -507,7 +549,7 @@ For example,</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let skip&lt;I&gt; for next&lt;I, ?&gt; = ...;
+</span>skip&lt;I&gt; where next&lt;I, ?&gt; := ...;
 <span class="boring">}
 </span></code></pre></pre>
 <p>says &quot;implement <code>skip&lt;I&gt;</code> for any <code>I</code> that has an implementation <code>next&lt;I, T&gt;</code>, where <code>T</code> is any type&quot;.
@@ -531,9 +573,9 @@ Each instantiation of a generic type is unique and is treated as a completely se
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let print_result = (r: Result&lt;u32, str&gt;) =&gt; print(conv(r));
+</span>print_result := (r: Result&lt;u32, str&gt;) =&gt; print(conv(r));
 
-let my_res: Result&lt;u16, str&gt; = Ok(&quot;Hello there!&quot;);
+my_res: Result&lt;u16, str&gt; = Ok(&quot;Hello there!&quot;);
 print_result(my_res); // Type mis // Error: Type mismatch: was expecting `Result&lt;u32, str&gt;`, got `Result&lt;u16, str&gt;`.
 <span class="boring">}
 </span></code></pre></pre>
@@ -553,27 +595,27 @@ It can be inferred by the types of the contents, or the expected return value, o
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let abc = Vector3 { x = 'a'; y = 'b'; z = 'c' }; // Vector3&lt;char&gt;
-let maybe_foo = Some(&quot;foo&quot;); // Option&lt;str&gt;
+</span>abc := Vector3 { x = 'a'; y = 'b'; z = 'c' }; // Vector3&lt;char&gt;
+maybe_foo := Some(&quot;foo&quot;); // Option&lt;str&gt;
 <span class="boring">}
 </span></code></pre></pre>
 <p>If you want a generic type argument to be inferred, but want to specify another one, you can use the <code>_</code> syntax:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let char_list = &quot;Hello world&quot;.iter().collect&lt;_, [char]&gt;();
+</span>char_list := &quot;Hello world&quot;.iter().collect&lt;_, [char]&gt;();
 <span class="boring">}
 </span></code></pre></pre>
 <h2 id="generic-parameters"><a class="header" href="#generic-parameters">Generic parameters</a></h2>
 <p>Generic parameters in Hash work slightly differently than they do in other languages.</p>
 <p>For example, one can write:</p>
-<pre><code class="language-rs">let next&lt;Enumerate&lt;I&gt;, (usize, T)&gt; where next&lt;I, T&gt;;
+<pre><code class="language-rs">next&lt;Enumerate&lt;I&gt;, (usize, T)&gt; where next&lt;I, T&gt;;
 </code></pre>
 <p>This implements the <code>next</code> trait from the standard library for the <code>Enumerate</code> struct.
 Notice that the <code>Enumerate</code> struct takes a generic parameter, which is denoted with <code>I</code>.
 Type variables in type argument lists can appear nested within other generic types.
 When a type variable appears anywhere within a type argument list, it is implicitly &quot;declared&quot;.</p>
-<pre><code class="language-rs">let next&lt;WeirdIterator&lt;I&gt;, I&gt; where next&lt;I, ?&gt;;
+<pre><code class="language-rs">next&lt;WeirdIterator&lt;I&gt;, I&gt; where next&lt;I, ?&gt;;
 </code></pre>
 <p>The above snippet implements <code>next</code> for a <code>WeirdIterator</code> struct, generic over some type <code>I</code>.
 The element of the iterator is of the same type <code>I</code>.</p>
@@ -591,15 +633,15 @@ you can say that: </p>
 <p>which implies that you are asserting that <code>some_value</code> is a string, this is essentially a way to avoid explicitly stating that type of a variable every
 single time and telling the compiler &quot;Trust me <code>some_value</code> is a <code>string</code>&quot;. </p>
 <p>The principle is somewhat similar in <code>Hash</code>, but it is more strictly enforced.
-For example, within the statement <code>let x = 37;</code>, the type of <code>x</code> can be any of the
+For example, within the statement <code>x := 37;</code>, the type of <code>x</code> can be any of the
 integer types. This might lead to unexpected behaviour in future statements, where
 the compiler has decided the type of <code>x</code> (it might not be what you intended it).</p>
 <p>So, you can either declare <code>x</code> to be some integer type explicitly like so:</p>
-<pre><code class="language-rs">let x: u32 = 37;
+<pre><code class="language-rs">x: u32 = 37;
 </code></pre>
 <p>Or you can, use <code>as</code> to imply a type for a variable, which the compiler will assume 
 to be true, like so:</p>
-<pre><code class="language-rs">let x = 37 as u32;
+<pre><code class="language-rs">x := 37 as u32;
 </code></pre>
 <h2 id="failing-type-assertions"><a class="header" href="#failing-type-assertions">Failing type assertions</a></h2>
 <p>If you specify a type assertion, the compiler will either attempt to infer this information from the left-hand side of the <code>as</code> operator
@@ -667,7 +709,7 @@ conditional statements. To use the <code>else-if</code> syntax, you do so like t
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let a: u8 = 12;
+</span>a: u8 = 12;
 
 if a { print(&quot;a&quot;) }
 <span class="boring">}
@@ -692,21 +734,21 @@ can also specifically return a type as you would normally do within a function b
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let abs: (i64: x) =&gt; i64 = if x &lt; 0 { -x } else { x }
+</span>abs: (i64: x) =&gt; i64 = if x &lt; 0 { -x } else { x }
 <span class="boring">}
 </span></code></pre></pre>
 <p>You can also assign values since <code>if</code> statements are just blocks</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let my_value: i32 = if some_condition == x { 3 } else { 5 };
+</span>my_value: i32 = if some_condition == x { 3 } else { 5 };
 <span class="boring">}
 </span></code></pre></pre>
 <p>However, you cannot do something like this:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let abs: (i64: x) =&gt; i64 = if x &lt; 0 { -x }
+</span>abs: (i64: x) =&gt; i64 = if x &lt; 0 { -x }
 <span class="boring">}
 </span></code></pre></pre>
 <p><strong>Note</strong>: here that you will not get a syntax error if you run this, but you will encounter an error during the interpretation stage of the program because the function may not have any return type since this has no definition
@@ -722,7 +764,7 @@ of what should happen for the <code>else</code> case.</p>
 };
 
 // mission critical, program should exit if it failed
-let result: Result&lt;u16, str&gt; = Ok(12);
+result: Result&lt;u16, str&gt; = Ok(12);
 
 if let Ok(value) = result  { 
   print(&quot;Got '&quot; + conv(value) + &quot;' from operation&quot;) 
@@ -736,14 +778,14 @@ block which is essentially treated as if it was a functional body, like so:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let f: str = &quot;file.txt&quot;;
+</span>f: str = &quot;file.txt&quot;;
 
-if { let a = open(f); is_ok(a) } {
+if { a = open(f); is_ok(a) } {
     // run if is_ok(a) returns true
 }
 
 // the above statement can also be written as
-let a = open(f);
+a = open(f);
 
 if is_ok(a) {
     // run if is_ok(a) returns true
@@ -763,9 +805,9 @@ of <code>a</code> within the <code>if</code> statement body or later on in the p
 <span class="boring">#![allow(unused)]
 </span>
 <span class="boring">fn main() {
-</span>let a = input&lt;u8&gt;();
+</span>a := input&lt;u8&gt;();
 
-let m2 = match a {
+m2 := match a {
   1 =&gt; &quot;one&quot;;
   2 =&gt; &quot;two&quot;;
   _ =&gt; &quot;not one or two&quot;;
@@ -773,13 +815,13 @@ let m2 = match a {
 
 // Or as a function
 
-let convert: (x: u8) =&gt; str = (x) =&gt; match x {
+convert: (x: u8) =&gt; str = (x) =&gt; match x {
   1 =&gt; &quot;one&quot;;
   2 =&gt; &quot;two&quot;;
   _ =&gt; &quot;not one or two&quot;;
 }
 
-let m = convert(input&lt;u8&gt;());
+m := convert(input&lt;u8&gt;());
 <span class="boring">}
 </span></code></pre></pre>
 <p>The <code>_</code> case is a special wildcard case that captures any case. This is essentially synonymous with the <code>else</code> clause in many other languages like Python or JavaScript. For conventional purposes, it should be included when creating a <code>match</code> statement where the type value is not reasonably bounded (like an integer). One subtle difference with the <code>match</code> syntax is you must always explicitly define a <code>_</code> case. This language behaviour is designed to enforce that <code>explicit</code> is better than <code>implicit</code>. So, if you know that a program should never hit
@@ -799,7 +841,7 @@ the default case:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let convert: (x: u8) =&gt; str = (x) =&gt; match x {
+</span>convert: (x: u8) =&gt; str = (x) =&gt; match x {
   _ =&gt; &quot;not one or two&quot;;
   1 =&gt; &quot;one&quot;;
   2 =&gt; &quot;two&quot;;
@@ -820,7 +862,7 @@ For example,</p>
 ...
 
 // mission critical, program should exit if it failed
-let result: Result&lt;u16, str&gt; = Ok(12);
+result: Result&lt;u16, str&gt; = Ok(12);
 
 match result {
   Ok(value) =&gt; print(&quot;Got '&quot; + conv(value) + &quot;' from operation&quot;);
@@ -833,7 +875,7 @@ writing the following syntax:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let x: u32 = input&lt;u32&gt;();
+</span>x: u32 = input&lt;u32&gt;();
 
 match x {
   1 | 2 | 3       =&gt; print(&quot;x is 1, 2, or 3&quot;);
@@ -847,8 +889,8 @@ can do so using the <code>match-if</code> syntax, like so:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let x: u32 = input&lt;u32&gt;();
-let y: bool = true;
+</span>x: u32 = input&lt;u32&gt;();
+y: bool = true;
 
 match x {
   1 | 2 | 3 if y =&gt; print(&quot;x is 1, 2, or 3 when y is true&quot;);
@@ -869,7 +911,7 @@ consider the following snippet of code:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let x = conv&lt;int&gt;(input());
+</span>x := conv&lt;int&gt;(input());
 
 match x {
     Some(1) =&gt; print(&quot;That's a one!&quot;);
@@ -884,14 +926,13 @@ to. Literal patterns follow the same syntax to binding patterns. Additionally, l
 binding elements such as the third condition in the <code>match</code> statement: <code>Some(n) =&gt; ...</code> where <code>n</code> is the bind
 to the literal.</p>
 <h2 id="destructuring-patterns"><a class="header" href="#destructuring-patterns">Destructuring patterns</a></h2>
-<p>Destructuring patterns are used to assign parts of an object to separate variables within <code>let</code>, <code>for</code>, and
-<code>match</code>statements. A very simple example of a destructuring pattern in a <code>let</code> statement would be:</p>
+<p>Destructuring patterns are used to assign parts of an object to separate variables within declarations, <code>for</code>, and
+<code>match</code>statements. A very simple example of a destructuring pattern in a declaration statement would be:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let tup = (1, 2); // 2D point
-
-let (x, y) = tup; // x=1, y=2
+</span>tup := (1, 2); // 2D point
+(x, y) = tup; // x=1, y=2
 <span class="boring">}
 </span></code></pre></pre>
 <p>In this example, the <code>x</code> and <code>y</code> variables are binding to the components of the tuple <code>tup</code>.
@@ -904,7 +945,7 @@ from the whole structure. </p>
 copied but represented as referenced, pattern binds can be thought of as just shorthand for 
 assigning named fields to individual symbols with the same names.</p>
 </blockquote>
-<p>Similarly to <code>let</code> statements, <code>for</code> statements can also utilise destructuring patterns:</p>
+<p>Similarly to declaration statements, <code>for</code> statements can also utilise destructuring patterns:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span>
@@ -914,7 +955,7 @@ assigning named fields to individual symbols with the same names.</p>
     y: int
 }
 
-let points = [Point {x=1, y=2}, Point {x=3, y=2}, Point {x=-1, y=7}, ...];
+points := [Point {x=1, y=2}, Point {x=3, y=2}, Point {x=-1, y=7}, ...];
 
 for Point {x, y} in points.iter() {
     print(sqrt(x*x + y*y))
@@ -929,12 +970,12 @@ access fields available within a struct by specifying the field name and then fo
 by an optional right-hand side pattern to either rename the field or use a literal pattern.</p>
 <h3 id="basic"><a class="header" href="#basic">Basic</a></h3>
 <p>Struct patterns can be used in both literals and destructuring contexts. To destructure a struct
-within a <code>let</code> statement, you specify the name of the struct (it can be namespaced as well), and then
+within a declaration statement, you specify the name of the struct (it can be namespaced as well), and then
 specify the binding fields:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let Point {x, y} = my_point;
+</span>Point {x, y} := my_point;
 <span class="boring">}
 </span></code></pre></pre>
 <p>You can also use struct literal patterns within a <code>match</code> statement:</p>
@@ -949,7 +990,7 @@ specify the binding fields:</p>
     sex: char;
 };
 
-let p = Person {
+p := Person {
     name = &quot;John&quot;;
     age = 23;
     height = 1.89;
@@ -980,9 +1021,9 @@ match p {
     ...
 }
 
-let compare_id = (car: Car, id: int) =&gt; {
+compare_id := (car: Car, id: int) =&gt; {
     // destruct the 'id' out of car and rename it
-    let Car {id = car_id} = car;
+    Car {id = car_id} := car;
 
     id == car_id
 }
@@ -991,20 +1032,20 @@ let compare_id = (car: Car, id: int) =&gt; {
 <p>So, in the above example (which is admittedly unrealistic) we rename the cars <code>id</code> field to
 <code>car_id</code> by specifying the right-hand side binding pattern <code>= car_id</code>.</p>
 <h2 id="namespace-patterns"><a class="header" href="#namespace-patterns">Namespace patterns</a></h2>
-<p>Namespace patterns are very similar to struct patterns, but they can only be used within <code>let</code>
+<p>Namespace patterns are very similar to struct patterns, but they can only be used within declarations
 statements and when importing symbols from other modules. They follow a simple syntax:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>// imports only a and b from the module
-let {a, b} = import(&quot;./my_lib&quot;);
+{a, b} = import(&quot;./my_lib&quot;);
 
 // imports 'c' as my_c, and 'd' from the module.
-let {c: my_c, d} = import(&quot;./other_lib&quot;); 
+{c: my_c, d} = import(&quot;./other_lib&quot;); 
 <span class="boring">}
 </span></code></pre></pre>
 <p>To read more about modules, you can click <a href="basics/./modules.html">here</a>.</p>
-<h2 id="tuple-patterns"><a class="header" href="#tuple-patterns">Tuple patterns</a></h2>
+<h2 id="tuple-patterns-"><a class="header" href="#tuple-patterns-">Tuple patterns 🚧</a></h2>
 <p>Tuple patterns are straight forward, they follow the same syntax as declaring a tuple literal.</p>
 <p>To ignore some parts of the tuple, you can use the <code>_</code> (ignore) operator to throw away parts of the
 tuple. For example, if a 3-element sized tuple was provided and you only want to use the second element,
@@ -1013,7 +1054,7 @@ you can do:</p>
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>// tri_group: (int, float, str)
-let (_, n, _) = tri_group;
+(_, n, _) := tri_group;
 <span class="boring">}
 </span></code></pre></pre>
 <p>Pattern matching on tuples is also currently the only way to work with tuples that are sized 9 elements
@@ -1023,7 +1064,7 @@ support accessing each element via the property access. So, for example:</p>
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>excessive_tup.tenth; // error
-let (_, _, _, _, _, _, _, _, _, tenth) =  excessive_tup;
+(_, _, _, _, _, _, _, _, _, tenth) :=  excessive_tup;
 <span class="boring">}
 </span></code></pre></pre>
 <blockquote>
@@ -1036,7 +1077,7 @@ you should use a struct in that case which would solve the complexities of your 
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let [a, b] = arr;
+</span>[a, b] := arr;
 <span class="boring">}
 </span></code></pre></pre>
 <p>Now in this example, the compiler will assume that the size of <code>arr</code> is of length 2, and if not it will error since
@@ -1046,7 +1087,7 @@ the first two by writing:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let [a, b, ...] = arr;
+</span>[a, b, ...] := arr;
 <span class="boring">}
 </span></code></pre></pre>
 <p>If you want to assign the remaining elements to some bind, you can specify an identifier after the <code>spread</code> operator like
@@ -1054,7 +1095,7 @@ so:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let [a, b, ...rest] = arr;
+</span>[a, b, ...rest] := arr;
 <span class="boring">}
 </span></code></pre></pre>
 <p>If you want to bind elements at the end of the array, you can use the <code>spread</code> operator at the start of the pattern
@@ -1062,7 +1103,7 @@ to ignore or capture the elements like so:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let [..., a, b] = arr;
+</span>[..., a, b] := arr;
 <span class="boring">}
 </span></code></pre></pre>
 <p>Assign the last two elements of the array to <code>a</code> and <code>b</code> respectively.</p>
@@ -1071,13 +1112,13 @@ For example, the following pattern will be reported as an error by the compiler:
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let [..., a, ...] = arr;
+</span>[..., a, ...] := arr;
 <span class="boring">}
 </span></code></pre></pre>
 <pre><code>error: Failed to Typecheck:
  --&gt; 1:6 - 1:9, 1:15 - 1:18
   |
-1 | let [..., a, ...] = arr;
+1 | [..., a, ...] := arr;
   |      ^^^     ^^^
   |
   = You cannot use multiple spread operators within a single array pattern.
@@ -1112,7 +1153,7 @@ convert the list into an iterator:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let nums: [u32] = [1,2,3,4,5,6,7,8,9,10]; 
+</span>nums: [u32] = [1,2,3,4,5,6,7,8,9,10]; 
 
 // infix functional notation
 for num in nums.iter() {
@@ -1142,7 +1183,7 @@ given condition.</p>
 <span class="boring">#![allow(unused)]
 </span>
 <span class="boring">fn main() {
-</span>let c: u32 = 0;
+</span>c: u32 = 0;
 
 while c &lt; 10 {
     print(i);
@@ -1198,7 +1239,7 @@ before the final expression. For example:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let c: u32 = 100;
+</span>c: u32 = 100;
 
 while c -= 1 {
     ...
@@ -1208,7 +1249,7 @@ while c -= 1 {
 <p>Running the following code snippet produces the following error:</p>
 <pre><code>error[0052]: Failed to Typecheck: Mismatching types.
  --&gt; 3:7 - 3:12
-1 | let c: u32 = 100;
+1 | c: u32 = 100;
 2 |
 3 | while c -= 1 {
   |       ^^^^^^  Expression does not have a 'boolean' type 
@@ -1221,7 +1262,7 @@ while c -= 1 {
 <span class="boring">#![allow(unused)]
 </span>
 <span class="boring">fn main() {
-</span>let c: u64 = 1;
+</span>c: u64 = 1;
 
 loop {
     print(&quot;I looped &quot; + c + &quot; times!&quot;);
@@ -1234,7 +1275,7 @@ loop {
 <span class="boring">#![allow(unused)]
 </span>
 <span class="boring">fn main() {
-</span>let c: u64 = 1;
+</span>c: u64 = 1;
 
 loop {
     if c == 10 { break }
@@ -1247,7 +1288,7 @@ loop {
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let c: u64 = 1;
+</span>c: u64 = 1;
 
 loop {
     c += 1;
@@ -1266,20 +1307,20 @@ Functions can be assigned to variables in the same way that any other value is s
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let var = (...args) =&gt; { ...body... };
+</span>func := (...args) =&gt; { ...body... };
 
 // With a return type
-let var = (...args) -&gt; return_ty =&gt; { ...body... };
+func := (...args) -&gt; return_ty =&gt; { ...body... };
 <span class="boring">}
 </span></code></pre></pre>
 <p>Function arguments are comma separated:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let var = (arg0, arg1) =&gt; { ...body... };
+</span>func := (arg0, arg1) =&gt; { ...body... };
 
 // and you can optionally specify types:
-let var = (arg0: str, arg1: char) -&gt; u32 =&gt; { ...body... };
+func := (arg0: str, arg1: char) -&gt; u32 =&gt; { ...body... };
 <span class="boring">}
 </span></code></pre></pre>
 <p>Function literal definitions can also leave annotations to
@@ -1287,38 +1328,67 @@ the variable definition:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let var: (str, char) -&gt; u32 = (arg0, arg1) =&gt; { ...body... };
+</span>var := (str, char) -&gt; u32 = (arg0, arg1) =&gt; { ... };
 <span class="boring">}
 </span></code></pre></pre>
+<p>Function literals can also specify default argument types...</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>func := (arg0: str, arg1: char = 'c') -&gt; u32 =&gt; { ... };
+
+// The type of the argument is also inferred if provided without a type
+// annotation...
+func := (arg0: str, arg1 = 'c') -&gt; u32 =&gt; { ... };
+<span class="boring">}
+</span></code></pre></pre>
+<p>This means that functions which have default arguments don't have to be provided, and they 
+can be provided as named arguments:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>func := (arg0: str, arg1 = 'c', arg3 = 2) -&gt; u32 =&gt; { ... };
+
+func(&quot;cccccbbbaaa&quot;); // This is valid as all of the arguments are supplied
+
+// You can optionally provide the arguments in declaration order:
+func(&quot;cccccbbbaaa&quot;, 'b', 2); 
+
+// Or you can provide them as named arguments:
+func(&quot;cccccbbbaaa&quot;, arg3 = 2); 
+<span class="boring">}
+</span></code></pre></pre>
+<p>Functions which have named arguments must follow the convention that all un-named
+arguments follow</p>
 <h2 id="examples"><a class="header" href="#examples">Examples</a></h2>
 <p>Define a function is to assign it to a variable:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let fib = (n: u32) =&gt; 
+</span>fib := (n: u32) =&gt; {
    if n == 1 || n == 2 {
        n
    } else {
        fib(n - 1) + fib(n - 2)
-   };
-}
+   }
+};
 
-print(fib) // &lt;function at ____&gt;
-print(fib(3)) // 3
+print(fib); // &lt;function at ____&gt;
+print(fib(3)); // 3
 <span class="boring">}
 </span></code></pre></pre>
 <p>Multiple arguments can be specified:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let str_eq = (a: str, b: str) =&gt; a == b;
+</span>str_eq := (a: str, b: str) =&gt; a == b;
 <span class="boring">}
 </span></code></pre></pre>
 <p>The type of a function can be specified in a similar way:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let str_eq: (str, str) -&gt; str = (a, b) =&gt; a == b;
+</span>str_eq: (str, str) -&gt; str = (a, b) =&gt; a == b;
 <span class="boring">}
 </span></code></pre></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="directives"><a class="header" href="#directives">Directives</a></h1>
@@ -1355,7 +1425,7 @@ or a simple expression. </p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let fib = #dump (n: u32) -&gt; u32 =&gt; 
+</span>fib := #dump (n: u32) -&gt; u32 =&gt; 
    if n == 1 || n == 2 {
        n
    } else {
@@ -1402,9 +1472,9 @@ that are essential for any <code>Hash</code> program to run.</p>
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>// main.hash
-let a = import(&quot;lib/a&quot;);
-let b = import(&quot;lib/b&quot;);
-let c = import(&quot;lib/sub/c&quot;);
+a := import(&quot;lib/a&quot;);
+b := import(&quot;lib/b&quot;);
+c := import(&quot;lib/sub/c&quot;);
 <span class="boring">}
 </span></code></pre></pre>
 <p>By doing so, you are placing everything that is defined within each of those modules under
@@ -1429,9 +1499,9 @@ struct Point = {
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>// main.hash
-let a = import(&quot;lib/a&quot;);
+a := import(&quot;lib/a&quot;);
 
-let p1 = a::Point { x=2; y=3 };
+p1 := a::Point { x=2; y=3 };
 
 print(p1.x); // 2
 print(p1.y); // 3
@@ -1444,9 +1514,9 @@ follows:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let {Point} = import(&quot;lib/a&quot;);
+</span>{Point} := import(&quot;lib/a&quot;);
 
-let p1 = Point { x=2; y=3 };
+p1 := Point { x=2; y=3 };
 <span class="boring">}
 </span></code></pre></pre>
 <p>In case you have a member of your current module already reserving a name, you
@@ -1454,9 +1524,9 @@ can rename the exported members to your liking:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let {Point: LibPoint} = import(&quot;lib/a&quot;);
+</span>{Point: LibPoint} = import(&quot;lib/a&quot;);
 
-let p1 = LibPoint { x=2; y=3 };
+p1 := LibPoint { x=2; y=3 };
 <span class="boring">}
 </span></code></pre></pre>
 <blockquote>
@@ -1572,7 +1642,7 @@ loop {
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let i = [1,2,3,5].into_iter();
+</span>i := [1,2,3,5].into_iter();
 
 for x in i {
     print(&quot;x is &quot; + x);
@@ -1580,7 +1650,7 @@ for x in i {
 
 
 // the same as...
-let i = [1,2,3,5].into_iter();
+i := [1,2,3,5].into_iter();
 
 loop {
   match next(i) {
@@ -1614,7 +1684,7 @@ like so:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let c = 0;
+</span>c := 0;
 
 loop {
     match c &lt; 5 { // where 'x' is the condition for the while loop
@@ -1624,7 +1694,7 @@ loop {
 }
 
 // same as...
-let c = 0;
+c := 0;
 
 while c &lt; 5 {
     c+=1;

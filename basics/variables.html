@@ -145,7 +145,7 @@ literal expression that is assigned to the name.</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let x: u8;
+</span>x: u8;
 x = 3;
 <span class="boring">}
 </span></code></pre></pre>
@@ -153,7 +153,7 @@ x = 3;
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let x: u8;
+</span>x: u8;
 
 print(x) // :^( error
 <span class="boring">}
@@ -162,7 +162,7 @@ print(x) // :^( error
 <pre><code>error[0057]: Failed to typecheck: Un-initialised symbol
  --&gt; src/file.hash:3:7
   |
-1 | let x:u8;
+1 | x:u8;
   |     ^ symbol 'x' declared here without initialisation.
   |
   = note: Consider giving 'x' an initial value.
@@ -174,7 +174,7 @@ print(x) // :^( error
 </code></pre>
 <h2 id="type-inference"><a class="header" href="#type-inference">Type inference</a></h2>
 <p>The type of a variable, if not given, is automatically inferred by the value.
-In <code>let a: X = b</code>, if the type of <code>b</code> is not <code>X</code>, the language produces an error.</p>
+In <code>a: X = b</code>, if the type of <code>b</code> is not <code>X</code>, the language produces an error.</p>
 
                     </main>
 

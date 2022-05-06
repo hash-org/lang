@@ -167,7 +167,7 @@ convert the list into an iterator:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let nums: [u32] = [1,2,3,4,5,6,7,8,9,10]; 
+</span>nums: [u32] = [1,2,3,4,5,6,7,8,9,10]; 
 
 // infix functional notation
 for num in nums.iter() {
@@ -197,7 +197,7 @@ given condition.</p>
 <span class="boring">#![allow(unused)]
 </span>
 <span class="boring">fn main() {
-</span>let c: u32 = 0;
+</span>c: u32 = 0;
 
 while c &lt; 10 {
     print(i);
@@ -253,7 +253,7 @@ before the final expression. For example:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let c: u32 = 100;
+</span>c: u32 = 100;
 
 while c -= 1 {
     ...
@@ -263,7 +263,7 @@ while c -= 1 {
 <p>Running the following code snippet produces the following error:</p>
 <pre><code>error[0052]: Failed to Typecheck: Mismatching types.
  --&gt; 3:7 - 3:12
-1 | let c: u32 = 100;
+1 | c: u32 = 100;
 2 |
 3 | while c -= 1 {
   |       ^^^^^^  Expression does not have a 'boolean' type 
@@ -276,7 +276,7 @@ while c -= 1 {
 <span class="boring">#![allow(unused)]
 </span>
 <span class="boring">fn main() {
-</span>let c: u64 = 1;
+</span>c: u64 = 1;
 
 loop {
     print(&quot;I looped &quot; + c + &quot; times!&quot;);
@@ -289,7 +289,7 @@ loop {
 <span class="boring">#![allow(unused)]
 </span>
 <span class="boring">fn main() {
-</span>let c: u64 = 1;
+</span>c: u64 = 1;
 
 loop {
     if c == 10 { break }
@@ -302,7 +302,7 @@ loop {
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let c: u64 = 1;
+</span>c: u64 = 1;
 
 loop {
     c += 1;

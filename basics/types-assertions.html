@@ -151,15 +151,15 @@ you can say that: </p>
 <p>which implies that you are asserting that <code>some_value</code> is a string, this is essentially a way to avoid explicitly stating that type of a variable every
 single time and telling the compiler &quot;Trust me <code>some_value</code> is a <code>string</code>&quot;. </p>
 <p>The principle is somewhat similar in <code>Hash</code>, but it is more strictly enforced.
-For example, within the statement <code>let x = 37;</code>, the type of <code>x</code> can be any of the
+For example, within the statement <code>x := 37;</code>, the type of <code>x</code> can be any of the
 integer types. This might lead to unexpected behaviour in future statements, where
 the compiler has decided the type of <code>x</code> (it might not be what you intended it).</p>
 <p>So, you can either declare <code>x</code> to be some integer type explicitly like so:</p>
-<pre><code class="language-rs">let x: u32 = 37;
+<pre><code class="language-rs">x: u32 = 37;
 </code></pre>
 <p>Or you can, use <code>as</code> to imply a type for a variable, which the compiler will assume 
 to be true, like so:</p>
-<pre><code class="language-rs">let x = 37 as u32;
+<pre><code class="language-rs">x := 37 as u32;
 </code></pre>
 <h2 id="failing-type-assertions"><a class="header" href="#failing-type-assertions">Failing type assertions</a></h2>
 <p>If you specify a type assertion, the compiler will either attempt to infer this information from the left-hand side of the <code>as</code> operator

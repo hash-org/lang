@@ -148,7 +148,7 @@ consider the following snippet of code:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let x = conv&lt;int&gt;(input());
+</span>x := conv&lt;int&gt;(input());
 
 match x {
     Some(1) =&gt; print(&quot;That's a one!&quot;);
@@ -163,14 +163,13 @@ to. Literal patterns follow the same syntax to binding patterns. Additionally, l
 binding elements such as the third condition in the <code>match</code> statement: <code>Some(n) =&gt; ...</code> where <code>n</code> is the bind
 to the literal.</p>
 <h2 id="destructuring-patterns"><a class="header" href="#destructuring-patterns">Destructuring patterns</a></h2>
-<p>Destructuring patterns are used to assign parts of an object to separate variables within <code>let</code>, <code>for</code>, and
-<code>match</code>statements. A very simple example of a destructuring pattern in a <code>let</code> statement would be:</p>
+<p>Destructuring patterns are used to assign parts of an object to separate variables within declarations, <code>for</code>, and
+<code>match</code>statements. A very simple example of a destructuring pattern in a declaration statement would be:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let tup = (1, 2); // 2D point
-
-let (x, y) = tup; // x=1, y=2
+</span>tup := (1, 2); // 2D point
+(x, y) = tup; // x=1, y=2
 <span class="boring">}
 </span></code></pre></pre>
 <p>In this example, the <code>x</code> and <code>y</code> variables are binding to the components of the tuple <code>tup</code>.
@@ -183,7 +182,7 @@ from the whole structure. </p>
 copied but represented as referenced, pattern binds can be thought of as just shorthand for 
 assigning named fields to individual symbols with the same names.</p>
 </blockquote>
-<p>Similarly to <code>let</code> statements, <code>for</code> statements can also utilise destructuring patterns:</p>
+<p>Similarly to declaration statements, <code>for</code> statements can also utilise destructuring patterns:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span>
@@ -193,7 +192,7 @@ assigning named fields to individual symbols with the same names.</p>
     y: int
 }
 
-let points = [Point {x=1, y=2}, Point {x=3, y=2}, Point {x=-1, y=7}, ...];
+points := [Point {x=1, y=2}, Point {x=3, y=2}, Point {x=-1, y=7}, ...];
 
 for Point {x, y} in points.iter() {
     print(sqrt(x*x + y*y))
@@ -208,12 +207,12 @@ access fields available within a struct by specifying the field name and then fo
 by an optional right-hand side pattern to either rename the field or use a literal pattern.</p>
 <h3 id="basic"><a class="header" href="#basic">Basic</a></h3>
 <p>Struct patterns can be used in both literals and destructuring contexts. To destructure a struct
-within a <code>let</code> statement, you specify the name of the struct (it can be namespaced as well), and then
+within a declaration statement, you specify the name of the struct (it can be namespaced as well), and then
 specify the binding fields:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let Point {x, y} = my_point;
+</span>Point {x, y} := my_point;
 <span class="boring">}
 </span></code></pre></pre>
 <p>You can also use struct literal patterns within a <code>match</code> statement:</p>
@@ -228,7 +227,7 @@ specify the binding fields:</p>
     sex: char;
 };
 
-let p = Person {
+p := Person {
     name = &quot;John&quot;;
     age = 23;
     height = 1.89;
@@ -259,9 +258,9 @@ match p {
     ...
 }
 
-let compare_id = (car: Car, id: int) =&gt; {
+compare_id := (car: Car, id: int) =&gt; {
     // destruct the 'id' out of car and rename it
-    let Car {id = car_id} = car;
+    Car {id = car_id} := car;
 
     id == car_id
 }
@@ -270,20 +269,20 @@ let compare_id = (car: Car, id: int) =&gt; {
 <p>So, in the above example (which is admittedly unrealistic) we rename the cars <code>id</code> field to
 <code>car_id</code> by specifying the right-hand side binding pattern <code>= car_id</code>.</p>
 <h2 id="namespace-patterns"><a class="header" href="#namespace-patterns">Namespace patterns</a></h2>
-<p>Namespace patterns are very similar to struct patterns, but they can only be used within <code>let</code>
+<p>Namespace patterns are very similar to struct patterns, but they can only be used within declarations
 statements and when importing symbols from other modules. They follow a simple syntax:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>// imports only a and b from the module
-let {a, b} = import(&quot;./my_lib&quot;);
+{a, b} = import(&quot;./my_lib&quot;);
 
 // imports 'c' as my_c, and 'd' from the module.
-let {c: my_c, d} = import(&quot;./other_lib&quot;); 
+{c: my_c, d} = import(&quot;./other_lib&quot;); 
 <span class="boring">}
 </span></code></pre></pre>
 <p>To read more about modules, you can click <a href="./modules.html">here</a>.</p>
-<h2 id="tuple-patterns"><a class="header" href="#tuple-patterns">Tuple patterns</a></h2>
+<h2 id="tuple-patterns-"><a class="header" href="#tuple-patterns-">Tuple patterns 🚧</a></h2>
 <p>Tuple patterns are straight forward, they follow the same syntax as declaring a tuple literal.</p>
 <p>To ignore some parts of the tuple, you can use the <code>_</code> (ignore) operator to throw away parts of the
 tuple. For example, if a 3-element sized tuple was provided and you only want to use the second element,
@@ -292,7 +291,7 @@ you can do:</p>
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>// tri_group: (int, float, str)
-let (_, n, _) = tri_group;
+(_, n, _) := tri_group;
 <span class="boring">}
 </span></code></pre></pre>
 <p>Pattern matching on tuples is also currently the only way to work with tuples that are sized 9 elements
@@ -302,7 +301,7 @@ support accessing each element via the property access. So, for example:</p>
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>excessive_tup.tenth; // error
-let (_, _, _, _, _, _, _, _, _, tenth) =  excessive_tup;
+(_, _, _, _, _, _, _, _, _, tenth) :=  excessive_tup;
 <span class="boring">}
 </span></code></pre></pre>
 <blockquote>
@@ -315,7 +314,7 @@ you should use a struct in that case which would solve the complexities of your 
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let [a, b] = arr;
+</span>[a, b] := arr;
 <span class="boring">}
 </span></code></pre></pre>
 <p>Now in this example, the compiler will assume that the size of <code>arr</code> is of length 2, and if not it will error since
@@ -325,7 +324,7 @@ the first two by writing:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let [a, b, ...] = arr;
+</span>[a, b, ...] := arr;
 <span class="boring">}
 </span></code></pre></pre>
 <p>If you want to assign the remaining elements to some bind, you can specify an identifier after the <code>spread</code> operator like
@@ -333,7 +332,7 @@ so:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let [a, b, ...rest] = arr;
+</span>[a, b, ...rest] := arr;
 <span class="boring">}
 </span></code></pre></pre>
 <p>If you want to bind elements at the end of the array, you can use the <code>spread</code> operator at the start of the pattern
@@ -341,7 +340,7 @@ to ignore or capture the elements like so:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let [..., a, b] = arr;
+</span>[..., a, b] := arr;
 <span class="boring">}
 </span></code></pre></pre>
 <p>Assign the last two elements of the array to <code>a</code> and <code>b</code> respectively.</p>
@@ -350,13 +349,13 @@ For example, the following pattern will be reported as an error by the compiler:
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let [..., a, ...] = arr;
+</span>[..., a, ...] := arr;
 <span class="boring">}
 </span></code></pre></pre>
 <pre><code>error: Failed to Typecheck:
  --&gt; 1:6 - 1:9, 1:15 - 1:18
   |
-1 | let [..., a, ...] = arr;
+1 | [..., a, ...] := arr;
   |      ^^^     ^^^
   |
   = You cannot use multiple spread operators within a single array pattern.

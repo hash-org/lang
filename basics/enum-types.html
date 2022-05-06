@@ -156,14 +156,14 @@ Each variant can be paired with some data, in the form of a comma-separated list
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let err = NetworkError.Unexpected(&quot;something went terribly wrong&quot;, 32);
+</span>err := NetworkError.Unexpected(&quot;something went terribly wrong&quot;, 32);
 <span class="boring">}
 </span></code></pre></pre>
 <p>They can be <code>match</code>ed to discover what they contain:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let handle_error = (error: NetworkError) =&gt; match error {
+</span>handle_error := (error: NetworkError) =&gt; match error {
    NoBytesReceived =&gt; print(&quot;No bytes received, stopping&quot;);
    ConnectionTerminated =&gt; print(&quot;Connection was terminated&quot;);
    Unexpected(err, code) =&gt; print(&quot;An unexpected error occurred: &quot; + err + &quot; (&quot; + conv(code) + &quot;) &quot;);

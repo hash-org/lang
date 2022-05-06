@@ -161,7 +161,7 @@ Default values can be omitted, but can also be overridden.</p>
    name: str;
 }
 
-let d = Dog { name = &quot;Bob&quot; };
+d := Dog { name = &quot;Bob&quot; };
 
 print(d); // Dog { name = &quot;Bob&quot;; age = 42; }
 <span class="boring">}
@@ -171,7 +171,7 @@ An argument of type <code>Dog</code> can only be fulfilled by an instance of <co
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let dog_name = (dog: Dog) =&gt; dog.name;
+</span>dog_name := (dog: Dog) =&gt; dog.name;
 
 struct FakeDog = {
    age: u32 = 42;

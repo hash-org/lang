@@ -165,7 +165,7 @@ loop {
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let i = [1,2,3,5].into_iter();
+</span>i := [1,2,3,5].into_iter();
 
 for x in i {
     print(&quot;x is &quot; + x);
@@ -173,7 +173,7 @@ for x in i {
 
 
 // the same as...
-let i = [1,2,3,5].into_iter();
+i := [1,2,3,5].into_iter();
 
 loop {
   match next(i) {
@@ -207,7 +207,7 @@ like so:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let c = 0;
+</span>c := 0;
 
 loop {
     match c &lt; 5 { // where 'x' is the condition for the while loop
@@ -217,7 +217,7 @@ loop {
 }
 
 // same as...
-let c = 0;
+c := 0;
 
 while c &lt; 5 {
     c+=1;
