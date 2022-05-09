@@ -1089,7 +1089,7 @@ statements and when importing symbols from other modules. They follow a simple s
 <span class="boring">}
 </span></code></pre></pre>
 <p>To read more about modules, you can click <a href="basics/./modules.html">here</a>.</p>
-<h2 id="tuple-patterns-"><a class="header" href="#tuple-patterns-">Tuple patterns 🚧</a></h2>
+<h2 id="tuple-patterns"><a class="header" href="#tuple-patterns">Tuple patterns</a></h2>
 <p>Tuple patterns are straight forward, they follow the same syntax as declaring a tuple literal.</p>
 <p>To ignore some parts of the tuple, you can use the <code>_</code> (ignore) operator to throw away parts of the
 tuple. For example, if a 3-element sized tuple was provided and you only want to use the second element,
@@ -1115,9 +1115,8 @@ support accessing each element via the property access. So, for example:</p>
 <p><strong>Note</strong>: You shouldn't use tuples this large, this leads to code that is difficult to read and interpret,
 you should use a struct in that case which would solve the complexities of your data structures.</p>
 </blockquote>
-<h2 id="array-patterns-"><a class="header" href="#array-patterns-">Array patterns 🚧</a></h2>
-<p>Array patterns are currently not implemented within the language, but are planned to be added.</p>
-<p>An array pattern can bind elements at certain positions of the array by using the following syntax:</p>
+<h2 id="list-patterns"><a class="header" href="#list-patterns">List patterns</a></h2>
+<p>A list pattern can bind elements at certain positions of the array by using the following syntax:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
@@ -1163,7 +1162,7 @@ For example, the following pattern will be reported as an error by the compiler:
  --&gt; 1:6 - 1:9, 1:15 - 1:18
   |
 1 | [..., a, ...] := arr;
-  |      ^^^     ^^^
+  |  ^^^     ^^^
   |
   = You cannot use multiple spread operators within a single array pattern.
 </code></pre>
