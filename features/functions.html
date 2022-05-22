@@ -208,13 +208,14 @@ foo(a=&quot;a&quot;, &quot;b&quot;, c=&quot;c&quot;, d=&quot;d&quot;) // Not all
 foo(&quot;a&quot;, &quot;b&quot;, c=&quot;c&quot;, &quot;d&quot;) // Not allowed -- argument d must be named.
 </code></pre>
 <h2 id="grammar"><a class="header" href="#grammar">Grammar</a></h2>
-<p>The grammar for function definitions is as follows:</p>
+<p>The grammar for function definitions and function types is as follows:</p>
 <pre><code>function_param =
   | ( ident &quot;:=&quot; expr )  // Declaration and assignment, infer type
   | ( ident ( &quot;:&quot; type )? &quot;=&quot; expr  ) // Assignment
   | ( ident ( &quot;:&quot; type )  ) // Declaration
 
-function_def = &quot;(&quot; function_param* &quot;)&quot; ( &quot;-&gt;&quot; type )? ( &quot;=&gt;&quot; expr )?
+function_def = &quot;(&quot; function_param* &quot;)&quot; ( &quot;-&gt;&quot; type )? (&quot;=&gt;&quot; expr)
+function_type = &quot;(&quot; function_param* &quot;)&quot; &quot;-&gt;&quot; type
 </code></pre>
 <p>The grammar for function calls is as follows:</p>
 <pre><code>function_call_arg = expr | ( ident &quot;=&quot; expr )

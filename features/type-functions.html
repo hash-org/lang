@@ -137,7 +137,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="generics"><a class="header" href="#generics">Generics</a></h1>
+                        <h1 id="type-functions"><a class="header" href="#type-functions">Type functions</a></h1>
 <p>Hash supports functions both at the value level and at the type level.
 Type-level functions correspond to generics in other languages.
 They are declared using angular brackets (<code>&lt;</code> and <code>&gt;</code>) rather than parentheses, and all parameters are types.
@@ -226,6 +226,21 @@ make_vec_with_alloc := &lt;T, Allocator: Alloc&gt; =&gt; (allocator: Allocator) 
 
 x := make_vec&lt;str&gt;(); // `Allocator = GlobalAllocator` inferred
 y := make_vec_with_alloc&lt;str, _&gt;(slab_allocator); // `Allocator = SlabAllocator` inferred
+</code></pre>
+<h2 id="grammar"><a class="header" href="#grammar">Grammar</a></h2>
+<p>The grammar for type function definitions and type function types is as follows:</p>
+<pre><code>type_function_param =
+  | ( ident &quot;:=&quot; type )  // Declaration and assignment, infer type
+  | ( ident ( &quot;:&quot; type )? &quot;=&quot; type  ) // Assignment
+  | ( ident ( &quot;:&quot; type )  ) // Declaration
+
+type_function_def = &quot;&lt;&quot; type_function_param+ &quot;&gt;&quot; ( &quot;-&gt;&quot; type )? ( &quot;=&gt;&quot; type )?
+
+type_function_type = &quot;&lt;&quot; type_function_param+ &quot;&gt;&quot; &quot;-&gt;&quot; type
+</code></pre>
+<p>The grammar for type function calls is as follows:</p>
+<pre><code>type_function_call_arg = type | ( ident &quot;=&quot; type )
+type_function_call = ident &quot;(&quot; type_function_call_arg* &quot;)&quot;
 </code></pre>
 
                     </main>

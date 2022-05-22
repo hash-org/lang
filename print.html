@@ -286,13 +286,14 @@ foo(a=&quot;a&quot;, &quot;b&quot;, c=&quot;c&quot;, d=&quot;d&quot;) // Not all
 foo(&quot;a&quot;, &quot;b&quot;, c=&quot;c&quot;, &quot;d&quot;) // Not allowed -- argument d must be named.
 </code></pre>
 <h2 id="grammar-1"><a class="header" href="#grammar-1">Grammar</a></h2>
-<p>The grammar for function definitions is as follows:</p>
+<p>The grammar for function definitions and function types is as follows:</p>
 <pre><code>function_param =
   | ( ident &quot;:=&quot; expr )  // Declaration and assignment, infer type
   | ( ident ( &quot;:&quot; type )? &quot;=&quot; expr  ) // Assignment
   | ( ident ( &quot;:&quot; type )  ) // Declaration
 
-function_def = &quot;(&quot; function_param* &quot;)&quot; ( &quot;-&gt;&quot; type )? ( &quot;=&gt;&quot; expr )?
+function_def = &quot;(&quot; function_param* &quot;)&quot; ( &quot;-&gt;&quot; type )? (&quot;=&gt;&quot; expr)
+function_type = &quot;(&quot; function_param* &quot;)&quot; &quot;-&gt;&quot; type
 </code></pre>
 <p>The grammar for function calls is as follows:</p>
 <pre><code>function_call_arg = expr | ( ident &quot;=&quot; expr )
@@ -1427,7 +1428,7 @@ Notice the same attachment syntax (<code>~</code>) for multiple trait bounds, ju
 <p>Traits are monomorphised at runtime, and thus are completely erased.
 Therefore, there is no additional runtime overhead to structuring your code using lots of traits/generics and polymorphism, vs using plain old functions without any generics.
 There is, however, additional compile-time cost to very complicated trait hierarchies and trait bounds.</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="generics"><a class="header" href="#generics">Generics</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="type-functions"><a class="header" href="#type-functions">Type functions</a></h1>
 <p>Hash supports functions both at the value level and at the type level.
 Type-level functions correspond to generics in other languages.
 They are declared using angular brackets (<code>&lt;</code> and <code>&gt;</code>) rather than parentheses, and all parameters are types.
@@ -1516,6 +1517,21 @@ make_vec_with_alloc := &lt;T, Allocator: Alloc&gt; =&gt; (allocator: Allocator) 
 
 x := make_vec&lt;str&gt;(); // `Allocator = GlobalAllocator` inferred
 y := make_vec_with_alloc&lt;str, _&gt;(slab_allocator); // `Allocator = SlabAllocator` inferred
+</code></pre>
+<h2 id="grammar-2"><a class="header" href="#grammar-2">Grammar</a></h2>
+<p>The grammar for type function definitions and type function types is as follows:</p>
+<pre><code>type_function_param =
+  | ( ident &quot;:=&quot; type )  // Declaration and assignment, infer type
+  | ( ident ( &quot;:&quot; type )? &quot;=&quot; type  ) // Assignment
+  | ( ident ( &quot;:&quot; type )  ) // Declaration
+
+type_function_def = &quot;&lt;&quot; type_function_param+ &quot;&gt;&quot; ( &quot;-&gt;&quot; type )? ( &quot;=&gt;&quot; type )?
+
+type_function_type = &quot;&lt;&quot; type_function_param+ &quot;&gt;&quot; &quot;-&gt;&quot; type
+</code></pre>
+<p>The grammar for type function calls is as follows:</p>
+<pre><code>type_function_call_arg = type | ( ident &quot;=&quot; type )
+type_function_call = ident &quot;(&quot; type_function_call_arg* &quot;)&quot;
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="memory"><a class="header" href="#memory">Memory</a></h1>
 <p>Still under construction.</p>
