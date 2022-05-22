@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>🚧 Traits - The Hash Programming Language</title>
+        <title>Traits and implementations - The Hash Programming Language</title>
         <!-- Custom HTML head -->
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
@@ -75,7 +75,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="../intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="../features/intro.html"><strong aria-hidden="true">2.</strong> Language features</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../features/name-bindings.html"><strong aria-hidden="true">2.1.</strong> Name bindings</a></li><li class="chapter-item expanded "><a href="../features/functions.html"><strong aria-hidden="true">2.2.</strong> Functions</a></li><li class="chapter-item expanded "><a href="../features/primitives.html"><strong aria-hidden="true">2.3.</strong> Primitives</a></li><li class="chapter-item expanded "><a href="../features/control-flow.html"><strong aria-hidden="true">2.4.</strong> 🚧 Control flow</a></li><li class="chapter-item expanded "><a href="../features/operators.html"><strong aria-hidden="true">2.5.</strong> 🚧 Operators</a></li><li class="chapter-item expanded "><a href="../features/structs-enums.html"><strong aria-hidden="true">2.6.</strong> 🚧 Structs and enums</a></li><li class="chapter-item expanded "><a href="../features/modules.html"><strong aria-hidden="true">2.7.</strong> 🚧 Modules and visibility</a></li><li class="chapter-item expanded "><a href="../features/patterns.html"><strong aria-hidden="true">2.8.</strong> 🚧 Patterns</a></li><li class="chapter-item expanded "><a href="../features/traits.html" class="active"><strong aria-hidden="true">2.9.</strong> 🚧 Traits</a></li><li class="chapter-item expanded "><a href="../features/type-functions.html"><strong aria-hidden="true">2.10.</strong> 🚧 Type functions</a></li><li class="chapter-item expanded "><a href="../features/memory.html"><strong aria-hidden="true">2.11.</strong> 🚧 Memory management</a></li><li class="chapter-item expanded "><a href="../features/directives.html"><strong aria-hidden="true">2.12.</strong> 🚧 Directives</a></li></ol></li><li class="chapter-item expanded "><a href="../standard-library/intro.html"><strong aria-hidden="true">3.</strong> Standard library</a></li><li class="chapter-item expanded "><a href="../interpreter/intro.html"><strong aria-hidden="true">4.</strong> Interpreter</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../interpreter/options.html"><strong aria-hidden="true">4.1.</strong> Interpreter options</a></li><li class="chapter-item expanded "><a href="../interpreter/backends.html"><strong aria-hidden="true">4.2.</strong> Compiler backends</a></li></ol></li><li class="chapter-item expanded "><a href="../advanced/intro.html"><strong aria-hidden="true">5.</strong> Advanced concepts</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../advanced/compiler-internals.html"><strong aria-hidden="true">5.1.</strong> Compiler internals</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../advanced/loop-transpilation.html"><strong aria-hidden="true">5.1.1.</strong> Loop transpilation</a></li><li class="chapter-item expanded "><a href="../advanced/if-statement-transpilation.html"><strong aria-hidden="true">5.1.2.</strong> If statement transpilation</a></li><li class="chapter-item expanded "><a href="../advanced/type-inference.html"><strong aria-hidden="true">5.1.3.</strong> Type inference</a></li></ol></li><li class="chapter-item expanded "><a href="../advanced/future-features.html"><strong aria-hidden="true">5.2.</strong> Future features</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="../features/intro.html"><strong aria-hidden="true">2.</strong> Language features</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../features/name-bindings.html"><strong aria-hidden="true">2.1.</strong> Name bindings</a></li><li class="chapter-item expanded "><a href="../features/functions.html"><strong aria-hidden="true">2.2.</strong> Functions</a></li><li class="chapter-item expanded "><a href="../features/primitives.html"><strong aria-hidden="true">2.3.</strong> Primitives</a></li><li class="chapter-item expanded "><a href="../features/control-flow.html"><strong aria-hidden="true">2.4.</strong> 🚧 Control flow</a></li><li class="chapter-item expanded "><a href="../features/operators.html"><strong aria-hidden="true">2.5.</strong> 🚧 Operators</a></li><li class="chapter-item expanded "><a href="../features/structs-enums.html"><strong aria-hidden="true">2.6.</strong> Structs and enums</a></li><li class="chapter-item expanded "><a href="../features/modules.html"><strong aria-hidden="true">2.7.</strong> 🚧 Modules and visibility</a></li><li class="chapter-item expanded "><a href="../features/patterns.html"><strong aria-hidden="true">2.8.</strong> 🚧 Patterns</a></li><li class="chapter-item expanded "><a href="../features/traits-impls.html" class="active"><strong aria-hidden="true">2.9.</strong> Traits and implementations</a></li><li class="chapter-item expanded "><a href="../features/type-functions.html"><strong aria-hidden="true">2.10.</strong> Type functions</a></li><li class="chapter-item expanded "><a href="../features/memory.html"><strong aria-hidden="true">2.11.</strong> 🚧 Memory management</a></li><li class="chapter-item expanded "><a href="../features/directives.html"><strong aria-hidden="true">2.12.</strong> 🚧 Directives</a></li></ol></li><li class="chapter-item expanded "><a href="../standard-library/intro.html"><strong aria-hidden="true">3.</strong> Standard library</a></li><li class="chapter-item expanded "><a href="../interpreter/intro.html"><strong aria-hidden="true">4.</strong> Interpreter</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../interpreter/options.html"><strong aria-hidden="true">4.1.</strong> Interpreter options</a></li><li class="chapter-item expanded "><a href="../interpreter/backends.html"><strong aria-hidden="true">4.2.</strong> Compiler backends</a></li></ol></li><li class="chapter-item expanded "><a href="../advanced/intro.html"><strong aria-hidden="true">5.</strong> Advanced concepts</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../advanced/compiler-internals.html"><strong aria-hidden="true">5.1.</strong> Compiler internals</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../advanced/loop-transpilation.html"><strong aria-hidden="true">5.1.1.</strong> Loop transpilation</a></li><li class="chapter-item expanded "><a href="../advanced/if-statement-transpilation.html"><strong aria-hidden="true">5.1.2.</strong> If statement transpilation</a></li><li class="chapter-item expanded "><a href="../advanced/type-inference.html"><strong aria-hidden="true">5.1.3.</strong> Type inference</a></li></ol></li><li class="chapter-item expanded "><a href="../advanced/future-features.html"><strong aria-hidden="true">5.2.</strong> Future features</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -137,7 +137,8 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="traits"><a class="header" href="#traits">Traits</a></h1>
+                        <h1 id="traits-and-implementations"><a class="header" href="#traits-and-implementations">Traits and implementations</a></h1>
+<h2 id="traits"><a class="header" href="#traits">Traits</a></h2>
 <p>Hash supports compile-time polymorphism through traits.
 Traits are a core mechanism in Hash; they allow for different implementations of the same set of operations, for different types.
 They are similar to traits in Rust, type-classes in Haskell, and protocols in Swift.
@@ -156,7 +157,7 @@ The special type <code>Self</code> denotes the type for which the trait is imple
 
 Dog ~= Printable {
   // `Self = Dog` inferred
-  print = (self) =&gt; io.printf(f&quot;Doge with name {self.name} and age {self.age}&quot;);
+  print = (self) =&gt; io::printf(f&quot;Doge with name {self.name} and age {self.age}&quot;);
 };
 </code></pre>
 <p>Now a <code>Dog</code> is assignable to any type that has bound <code>Printable</code>.</p>
@@ -232,6 +233,36 @@ Notice the same attachment syntax (<code>~</code>) for multiple trait bounds, ju
 <p>Traits are monomorphised at runtime, and thus are completely erased.
 Therefore, there is no additional runtime overhead to structuring your code using lots of traits/generics and polymorphism, vs using plain old functions without any generics.
 There is, however, additional compile-time cost to very complicated trait hierarchies and trait bounds.</p>
+<h2 id="implementations"><a class="header" href="#implementations">Implementations</a></h2>
+<p>Implementations can be attached to types without having to implement a specific trait, using <code>impl</code> blocks.
+These are equivalent to trait implementation blocks, but do not correspond to any trait, and just attach the given items to the type as associated items.
+Example:</p>
+<pre><code class="language-rs">Vector3 := &lt;T&gt; =&gt; struct(x: T, y: T, z: T);
+
+Vector3 ~= &lt;T: Mul ~ Sub&gt; =&gt; impl {
+  // Cross is an associated function on `Vector3&lt;T&gt;` for any `T: Mul ~ Sub`.
+  cross := (self, other: Self) -&gt; Self =&gt; {
+      Vector3(
+        self.y * other.z - self.z * other.y,
+        self.z * other.x - self.x * other.z,
+        self.x * other.y - self.y * other.x,
+      )
+  };
+};
+
+print(Vector3(1, 2, 3).cross(Vector3(4, 5, 6)));
+</code></pre>
+<p>By default, members of <code>impl</code> blocks are public, but <code>priv</code> can be written to make them private.</p>
+<h2 id="grammar"><a class="header" href="#grammar">Grammar</a></h2>
+<p>The grammar for trait definitions is as follows:</p>
+<pre><code>trait_def = &quot;trait&quot; &quot;{&quot; ( expr &quot;;&quot; )* &quot;}&quot;
+</code></pre>
+<p>The grammar for trait implementations is as follows:</p>
+<pre><code>trait_impl = ident &quot;{&quot; ( expr &quot;;&quot; )* &quot;}&quot;
+</code></pre>
+<p>The grammar for standalone <code>impl</code> blocks is as follows:</p>
+<pre><code>impl_block = &quot;impl&quot; &quot;{&quot; ( expr &quot;;&quot; )* &quot;}&quot;
+</code></pre>
 
                     </main>
 
