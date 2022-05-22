@@ -957,11 +957,11 @@ the given information and needs assistance. You shouldn't need to use type asser
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>struct Vector3 = {
-   x: f32;
-   y: f32;
-   z: f32;
-};
+</span>FloatVector3 := struct(
+   x: f32,
+   y: f32,
+   z: f32,
+);
 <span class="boring">}
 </span></code></pre></pre>
 <p>A struct is comprised of a set of fields.
@@ -971,30 +971,30 @@ Default values can be omitted, but can also be overridden.</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>struct Dog = {
-   age: u32 = 42;
-   name: str;
-}
+</span>Dog := struct(
+   age: u32 = 42,
+   name: str,
+);
 
-d := Dog { name = &quot;Bob&quot; };
+d := Dog(name = &quot;Bob&quot;);
 
-print(d); // Dog { name = &quot;Bob&quot;; age = 42; }
+print(d); // Dog(name = &quot;Bob&quot;, age = 42)
 <span class="boring">}
 </span></code></pre></pre>
 <p>Structs are nominal types.
-An argument of type <code>Dog</code> can only be fulfilled by an instance of <code>Dog</code>, and you can't pass in a struct that has the same fields but is of a different logical type.</p>
+An argument of type <code>Dog</code> can only be fulfilled by an instance of <code>Dog</code>, and you can't pass in a struct that has the same fields but is of a different named type.</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>dog_name := (dog: Dog) =&gt; dog.name;
 
-struct FakeDog = {
-   age: u32 = 42;
-   name: str;
-}
+FakeDog := struct(
+   age: u32 = 42,
+   name: str,
+);
 
 print(dog_name(d)); // &quot;Bob&quot;
-print(dog_name(FakeDog { age = 1, name = &quot;Max&quot; })); // Error: Type mismatch: was expecting `Dog`, got `FakeDog`.
+print(dog_name(FakeDog(age = 1, name = &quot;Max&quot;))); // Error: Type mismatch: was expecting `Dog`, got `FakeDog`.
 <span class="boring">}
 </span></code></pre></pre>
 <h1 id="enum-types"><a class="header" href="#enum-types">Enum types</a></h1>
@@ -1004,11 +1004,11 @@ These are also known as <em>algebraic data types</em>, or <em>tagged unions</em>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>enum NetworkError = {
-   NoBytesReceived;
-   ConnectionTerminated;
-   Unexpected(str, int);
-};
+</span>NetworkError := enum(
+   NoBytesReceived,
+   ConnectionTerminated,
+   Unexpected(message: str, code: i32),
+);
 <span class="boring">}
 </span></code></pre></pre>
 <p>Enum contents consist of a semicolon-separated list of variant names.
@@ -1016,7 +1016,7 @@ Each variant can be paired with some data, in the form of a comma-separated list
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>err := NetworkError.Unexpected(&quot;something went terribly wrong&quot;, 32);
+</span>err := NetworkError::Unexpected(&quot;something went terribly wrong&quot;, 32);
 <span class="boring">}
 </span></code></pre></pre>
 <p>They can be <code>match</code>ed to discover what they contain:</p>
@@ -1026,11 +1026,46 @@ Each variant can be paired with some data, in the form of a comma-separated list
 </span>handle_error := (error: NetworkError) =&gt; match error {
    NoBytesReceived =&gt; print(&quot;No bytes received, stopping&quot;);
    ConnectionTerminated =&gt; print(&quot;Connection was terminated&quot;);
-   Unexpected(err, code) =&gt; print(&quot;An unexpected error occurred: &quot; + err + &quot; (&quot; + conv(code) + &quot;) &quot;);
+   Unexpected(message, code) =&gt; print(&quot;An unexpected error occurred: &quot; + err + &quot; (&quot; + conv(code) + &quot;) &quot;);
 };
 <span class="boring">}
 </span></code></pre></pre>
-<p>Like structs, enums are nominal types, rather than structural.</p>
+<p>Like structs, enums are nominal types, rather than structural.
+Each enum member is essentially a struct type.</p>
+<h2 id="generic-types"><a class="header" href="#generic-types">Generic types</a></h2>
+<p>Because Hash supports type functions, structs and enums can be generic over some type parameters:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>LinkedList := &lt;T&gt; =&gt; struct(
+   head: Option&lt;&amp;raw T&gt;,
+);
+
+empty_linked_list = &lt;T&gt; =&gt; () -&gt; LinkedList&lt;T&gt; =&gt; {
+   LinkedList(head = None)
+};
+
+x := empty_linked_list&lt;i32&gt;(); // x: LinkedList&lt;i32&gt; inferred
+<span class="boring">}
+</span></code></pre></pre>
+<p>Notice that <code>struct(...)</code> and <code>enum(...)</code> are expressions, which are bound to names on the left hand side.
+For more information, see <a href="features/./type-functions.html">type functions</a>.</p>
+<h2 id="grammar-2"><a class="header" href="#grammar-2">Grammar</a></h2>
+<p>The grammar for struct definitions is as follows:</p>
+<pre><code>struct_member =
+  | ( ident &quot;:=&quot; expr )  // Declaration and assignment, infer type
+  | ( ident ( &quot;:&quot; type )? &quot;=&quot; expr  ) // Assignment
+  | ( ident ( &quot;:&quot; type )  ) // Declaration
+
+struct_def := &quot;struct&quot; &quot;(&quot; struct_member* &quot;)&quot;
+</code></pre>
+<p>The grammar for enum definitions is as follows:</p>
+<pre><code>enum_member =
+  | ident // No fields
+  | ident &quot;(&quot; struct_member* &quot;)&quot; // With fields
+
+enum_def := &quot;enum&quot; &quot;(&quot; enum_member* &quot;)&quot;
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="hash-language-modules"><a class="header" href="#hash-language-modules">Hash language modules</a></h1>
 <p>A module in <code>Hash</code> is equivalent to a namespace that can contain variable definitions, function definitions, type definitions or include other modules.</p>
 <h2 id="importing"><a class="header" href="#importing">Importing</a></h2>
@@ -1518,7 +1553,7 @@ make_vec_with_alloc := &lt;T, Allocator: Alloc&gt; =&gt; (allocator: Allocator) 
 x := make_vec&lt;str&gt;(); // `Allocator = GlobalAllocator` inferred
 y := make_vec_with_alloc&lt;str, _&gt;(slab_allocator); // `Allocator = SlabAllocator` inferred
 </code></pre>
-<h2 id="grammar-2"><a class="header" href="#grammar-2">Grammar</a></h2>
+<h2 id="grammar-3"><a class="header" href="#grammar-3">Grammar</a></h2>
 <p>The grammar for type function definitions and type function types is as follows:</p>
 <pre><code>type_function_param =
   | ( ident &quot;:=&quot; type )  // Declaration and assignment, infer type
