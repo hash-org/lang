@@ -214,12 +214,12 @@ foo(&quot;a&quot;, &quot;b&quot;, c=&quot;c&quot;, &quot;d&quot;) // Not allowed
   | ( ident ( &quot;:&quot; type )? &quot;=&quot; expr  ) // Assignment
   | ( ident ( &quot;:&quot; type )  ) // Declaration
 
-function_def = &quot;(&quot; function_param* &quot;)&quot; ( &quot;-&gt;&quot; type )? (&quot;=&gt;&quot; expr)
-function_type = &quot;(&quot; function_param* &quot;)&quot; &quot;-&gt;&quot; type
+function_def = &quot;(&quot; ( function_param &quot;,&quot; )* function_param? &quot;)&quot; ( &quot;-&gt;&quot; type )? (&quot;=&gt;&quot; expr)
+function_type = &quot;(&quot; ( function_param &quot;,&quot; )* function_param? &quot;)&quot; &quot;-&gt;&quot; type
 </code></pre>
 <p>The grammar for function calls is as follows:</p>
 <pre><code>function_call_arg = expr | ( ident &quot;=&quot; expr )
-function_call = expr &quot;(&quot; function_call_arg* &quot;)&quot;
+function_call = expr &quot;(&quot; ( function_call_arg &quot;,&quot; )* function_call_arg? &quot;)&quot;
 </code></pre>
 
                     </main>

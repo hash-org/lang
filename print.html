@@ -292,12 +292,12 @@ foo(&quot;a&quot;, &quot;b&quot;, c=&quot;c&quot;, &quot;d&quot;) // Not allowed
   | ( ident ( &quot;:&quot; type )? &quot;=&quot; expr  ) // Assignment
   | ( ident ( &quot;:&quot; type )  ) // Declaration
 
-function_def = &quot;(&quot; function_param* &quot;)&quot; ( &quot;-&gt;&quot; type )? (&quot;=&gt;&quot; expr)
-function_type = &quot;(&quot; function_param* &quot;)&quot; &quot;-&gt;&quot; type
+function_def = &quot;(&quot; ( function_param &quot;,&quot; )* function_param? &quot;)&quot; ( &quot;-&gt;&quot; type )? (&quot;=&gt;&quot; expr)
+function_type = &quot;(&quot; ( function_param &quot;,&quot; )* function_param? &quot;)&quot; &quot;-&gt;&quot; type
 </code></pre>
 <p>The grammar for function calls is as follows:</p>
 <pre><code>function_call_arg = expr | ( ident &quot;=&quot; expr )
-function_call = expr &quot;(&quot; function_call_arg* &quot;)&quot;
+function_call = expr &quot;(&quot; ( function_call_arg &quot;,&quot; )* function_call_arg? &quot;)&quot;
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="primitives"><a class="header" href="#primitives">Primitives</a></h1>
 <p>There are the following primitive types:</p>
@@ -376,7 +376,6 @@ If this is the case, you should consider using a structural data type which will
 Read more about patterns <a href="features/patterns.html">here</a>.</p>
 <p>Grammar for tuples:</p>
 <pre><code>tuple_literal = ( &quot;(&quot; ( expr &quot;,&quot; )* &quot;)&quot; ) | ( &quot;(&quot; ( expr &quot;,&quot; )* expr &quot;)&quot; )
-tuple_type = ( &quot;(&quot; ( type &quot;,&quot; )* &quot;)&quot; ) | ( &quot;(&quot; ( type &quot;,&quot; )* type &quot;)&quot; )
 </code></pre>
 <h3 id="named-tuples"><a class="header" href="#named-tuples">Named tuples</a></h3>
 <p>Named tuples are tuples that specify field names for each field within the tuple.
@@ -424,7 +423,6 @@ The syntax for sets is as follows:</p>
 <li>Set type: <code>{A}</code>, for example <code>foo: {i32} = {1, 2, 3}</code>.</li>
 </ul>
 <pre><code>set_literal = ( &quot;{&quot; &quot;,&quot; &quot;}&quot; ) | ( &quot;{&quot; ( expr &quot;,&quot; )+ &quot;}&quot; ) | ( &quot;{&quot; ( expr &quot;,&quot; )* expr &quot;}&quot; )
-set_type = &quot;{&quot; type &quot;}&quot;
 </code></pre>
 <h3 id="map"><a class="header" href="#map">Map</a></h3>
 <p>Maps in Hash represent collections of key-value pairs.
@@ -436,9 +434,9 @@ The syntax for maps is as follows:</p>
 <li>Many membered map: <code>{A: 1, B: 2, C: 3}</code> or <code>{A: 1, B: 2, C: 3,}</code> .</li>
 <li>Map type: <code>{K:V}</code>, for example <code>names: {str:str} = {&quot;thom&quot;:&quot;yorke&quot;, &quot;jonny&quot;:&quot;greenwood&quot;}</code>.</li>
 </ul>
-<pre><code>set_literal = ( &quot;{&quot; &quot;:&quot; &quot;}&quot; ) | ( &quot;{&quot; ( expr &quot;:&quot; expr &quot;,&quot; )* ( expr &quot;:&quot; expr )? &quot;}&quot; )
-set_type = &quot;{&quot; type &quot;:&quot; type &quot;}&quot;
+<pre><code>map_literal = ( &quot;{&quot; &quot;:&quot; &quot;}&quot; ) | ( &quot;{&quot; ( expr &quot;:&quot; expr &quot;,&quot; )* ( expr &quot;:&quot; expr )? &quot;}&quot; )
 </code></pre>
+<p><strong>Note</strong>: the grammar for literal types can be found in the <a href="features/./types.html">Types</a> section.</p>
 <div style="break-before: page; page-break-before: always;"></div><h2 id="conditional-statements"><a class="header" href="#conditional-statements">Conditional statements</a></h2>
 <p>Conditional statements in the <code>Hash</code> programming language are very similar to other languages such as Python, Javascript, C and Rust. However, there is one subtle <strong>difference</strong>, which is that the statement provided to a conditional statement must always evaluate to an explicit boolean value. </p>
 <h2 id="if-else-statements"><a class="header" href="#if-else-statements">If-else statements</a></h2>
@@ -1631,22 +1629,7 @@ x := make_vec&lt;str&gt;(); // `Allocator = GlobalAllocator` inferred
 y := make_vec_with_alloc&lt;str, _&gt;(slab_allocator); // `Allocator = SlabAllocator` inferred
 </code></pre>
 <h2 id="grammar-5"><a class="header" href="#grammar-5">Grammar</a></h2>
-<p>The grammar for type function definitions and type function types is as follows:</p>
-<pre><code>type_function_param =
-  | ( ident &quot;:=&quot; type )  // Declaration and assignment, infer type
-  | ( ident ( &quot;:&quot; type )? ( &quot;=&quot; type )?  ) // Declaration or assignment
-
-// The below is an expression:
-type_function_def = &quot;&lt;&quot; type_function_param+ &quot;&gt;&quot; ( &quot;-&gt;&quot; type )? &quot;=&gt;&quot; expr
-
-// The below is a type:
-type_function_type = &quot;&lt;&quot; type_function_param+ &quot;&gt;&quot; &quot;-&gt;&quot; type
-</code></pre>
-<p>The grammar for type function calls is as follows:</p>
-<pre><code>// These should be supported both at the type level and the expression level
-type_function_call_arg = type | ( ident &quot;=&quot; type )
-type_function_call = ident &quot;&lt;&quot; type_function_call_arg* &quot;&gt;&quot;
-</code></pre>
+<p>The grammar for type function definitions and type function types can be found in the <a href="features/./types.html">Types</a> section.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="memory"><a class="header" href="#memory">Memory</a></h1>
 <p>Still under construction.</p>
 <div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><h1 id="standard-library"><a class="header" href="#standard-library">Standard library</a></h1>

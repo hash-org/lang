@@ -214,7 +214,6 @@ If this is the case, you should consider using a structural data type which will
 Read more about patterns <a href="patterns.html">here</a>.</p>
 <p>Grammar for tuples:</p>
 <pre><code>tuple_literal = ( &quot;(&quot; ( expr &quot;,&quot; )* &quot;)&quot; ) | ( &quot;(&quot; ( expr &quot;,&quot; )* expr &quot;)&quot; )
-tuple_type = ( &quot;(&quot; ( type &quot;,&quot; )* &quot;)&quot; ) | ( &quot;(&quot; ( type &quot;,&quot; )* type &quot;)&quot; )
 </code></pre>
 <h3 id="named-tuples"><a class="header" href="#named-tuples">Named tuples</a></h3>
 <p>Named tuples are tuples that specify field names for each field within the tuple.
@@ -262,7 +261,6 @@ The syntax for sets is as follows:</p>
 <li>Set type: <code>{A}</code>, for example <code>foo: {i32} = {1, 2, 3}</code>.</li>
 </ul>
 <pre><code>set_literal = ( &quot;{&quot; &quot;,&quot; &quot;}&quot; ) | ( &quot;{&quot; ( expr &quot;,&quot; )+ &quot;}&quot; ) | ( &quot;{&quot; ( expr &quot;,&quot; )* expr &quot;}&quot; )
-set_type = &quot;{&quot; type &quot;}&quot;
 </code></pre>
 <h3 id="map"><a class="header" href="#map">Map</a></h3>
 <p>Maps in Hash represent collections of key-value pairs.
@@ -274,9 +272,9 @@ The syntax for maps is as follows:</p>
 <li>Many membered map: <code>{A: 1, B: 2, C: 3}</code> or <code>{A: 1, B: 2, C: 3,}</code> .</li>
 <li>Map type: <code>{K:V}</code>, for example <code>names: {str:str} = {&quot;thom&quot;:&quot;yorke&quot;, &quot;jonny&quot;:&quot;greenwood&quot;}</code>.</li>
 </ul>
-<pre><code>set_literal = ( &quot;{&quot; &quot;:&quot; &quot;}&quot; ) | ( &quot;{&quot; ( expr &quot;:&quot; expr &quot;,&quot; )* ( expr &quot;:&quot; expr )? &quot;}&quot; )
-set_type = &quot;{&quot; type &quot;:&quot; type &quot;}&quot;
+<pre><code>map_literal = ( &quot;{&quot; &quot;:&quot; &quot;}&quot; ) | ( &quot;{&quot; ( expr &quot;:&quot; expr &quot;,&quot; )* ( expr &quot;:&quot; expr )? &quot;}&quot; )
 </code></pre>
+<p><strong>Note</strong>: the grammar for literal types can be found in the <a href="./types.html">Types</a> section.</p>
 
                     </main>
 
