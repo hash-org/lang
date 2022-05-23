@@ -1634,16 +1634,18 @@ y := make_vec_with_alloc&lt;str, _&gt;(slab_allocator); // `Allocator = SlabAllo
 <p>The grammar for type function definitions and type function types is as follows:</p>
 <pre><code>type_function_param =
   | ( ident &quot;:=&quot; type )  // Declaration and assignment, infer type
-  | ( ident ( &quot;:&quot; type )? &quot;=&quot; type  ) // Assignment
-  | ( ident ( &quot;:&quot; type )  ) // Declaration
+  | ( ident ( &quot;:&quot; type )? ( &quot;=&quot; type )?  ) // Declaration or assignment
 
-type_function_def = &quot;&lt;&quot; type_function_param+ &quot;&gt;&quot; ( &quot;-&gt;&quot; type )? ( &quot;=&gt;&quot; type )?
+// The below is an expression:
+type_function_def = &quot;&lt;&quot; type_function_param+ &quot;&gt;&quot; ( &quot;-&gt;&quot; type )? &quot;=&gt;&quot; expr
 
+// The below is a type:
 type_function_type = &quot;&lt;&quot; type_function_param+ &quot;&gt;&quot; &quot;-&gt;&quot; type
 </code></pre>
 <p>The grammar for type function calls is as follows:</p>
-<pre><code>type_function_call_arg = type | ( ident &quot;=&quot; type )
-type_function_call = ident &quot;(&quot; type_function_call_arg* &quot;)&quot;
+<pre><code>// These should be supported both at the type level and the expression level
+type_function_call_arg = type | ( ident &quot;=&quot; type )
+type_function_call = ident &quot;&lt;&quot; type_function_call_arg* &quot;&gt;&quot;
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="memory"><a class="header" href="#memory">Memory</a></h1>
 <p>Still under construction.</p>
