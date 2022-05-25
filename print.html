@@ -964,7 +964,7 @@ the given information and needs assistance. You shouldn't need to use type asser
   | type_function
   | merged_types
 
-tuple_type = ( &quot;(&quot; ( type &quot;,&quot; )* &quot;)&quot; ) | ( &quot;(&quot; ( type &quot;,&quot; )* type &quot;)&quot; )
+tuple_type = ( &quot;(&quot; ( type &quot;,&quot; )* &quot;)&quot; ) | ( &quot;(&quot; ( type &quot;,&quot; )+ type &quot;)&quot; )
 
 list_type = &quot;[&quot; type &quot;]&quot;
 
@@ -983,9 +983,7 @@ function_type = &quot;(&quot; ( function_type_param &quot;,&quot; )* function_ty
 type_function_call_arg = type | ( ident &quot;=&quot; type )
 type_function_call = ( grouped_type | named_type ) &quot;&lt;&quot; ( type_function_call_arg &quot;,&quot; )* type_function_call_arg? &quot;&gt;&quot;
 
-type_function_param =
-  | ( ident &quot;:=&quot; type )  // Declaration and assignment, infer type
-  | ( ident ( &quot;:&quot; type )? ( &quot;=&quot; type )?  ) // Declaration or assignment
+type_function_param = ident ( &quot;:&quot; type )? ( &quot;=&quot; type )?
 
 type_function = &quot;&lt;&quot; ( type_function_param &quot;,&quot; )* type_function_param? &quot;&gt;&quot; &quot;-&gt;&quot; type
 
