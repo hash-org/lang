@@ -959,6 +959,7 @@ the given information and needs assistance. You shouldn't need to use type asser
   | map_type
   | grouped_type
   | named_type
+  | function_type
   | type_function_call
   | type_function
   | merged_types
@@ -974,6 +975,10 @@ set_type = &quot;{&quot; type &quot;}&quot;
 grouped_type = &quot;(&quot; type &quot;)&quot;
 
 named_type = access_name
+
+function_type_param = type | ( ident &quot;:&quot; type )
+
+function_type = &quot;(&quot; ( function_type_param &quot;,&quot; )* function_type_param? &quot;)&quot; &quot;-&gt;&quot; type
 
 type_function_call_arg = type | ( ident &quot;=&quot; type )
 type_function_call = ( grouped_type | named_type ) &quot;&lt;&quot; ( type_function_call_arg &quot;,&quot; )* type_function_call_arg? &quot;&gt;&quot;
