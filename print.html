@@ -963,6 +963,7 @@ the given information and needs assistance. You shouldn't need to use type asser
   | type_function_call
   | type_function
   | merged_types
+  | ref_type
 
 tuple_type = ( &quot;(&quot; ( type &quot;,&quot; )* &quot;)&quot; ) | ( &quot;(&quot; ( type &quot;,&quot; )+ type &quot;)&quot; )
 
@@ -988,6 +989,8 @@ type_function_param = ident ( &quot;:&quot; type )? ( &quot;=&quot; type )?
 type_function = &quot;&lt;&quot; ( type_function_param &quot;,&quot; )* type_function_param? &quot;&gt;&quot; &quot;-&gt;&quot; type
 
 merged_types = ( type &quot;~&quot; )+ type
+
+ref_type = &quot;&amp;&quot; ( &quot;raw&quot; )? ( &quot;mut&quot; )? type
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="struct-types"><a class="header" href="#struct-types">Struct types</a></h1>
 <p>In Hash, structs are pre-defined collections of heterogeneous types, similar to C or Rust:</p>
