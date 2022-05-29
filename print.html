@@ -1503,9 +1503,9 @@ module_pattern_member = identifier ( &quot;as&quot; single_pattern )?
 
 module_pattern = &quot;{&quot; ( module_pattern_member &quot;,&quot; )* module_pattern_member? &quot;}&quot;
 
-literal_pattern = integer_literal | string_literal | character_literal
+literal_pattern = integer_literal | string_literal | character_literal | float_literal
 
-list_pattern_member = pattern | ( &quot;...&quot; single_pattern? )
+list_pattern_member = pattern | ( &quot;...&quot; identifier? )
 
 list_pattern = &quot;[&quot; ( list_pattern_member &quot;,&quot; )* list_pattern_member? &quot;]&quot;
 </code></pre>
