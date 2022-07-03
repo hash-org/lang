@@ -143,7 +143,7 @@
 <p>Here are the general operators for arithmetic, bitwise assignment operators. This table does not include
 all of the possible operators specified within the grammar. There are more operators that are related to
 a specific group of operations or are used to convey meaning within the language.</p>
-<table><thead><tr><th>Operator</th><th>Example</th><th>Description</th><th>Overloadable trait</th></tr></thead><tbody>
+<div class="table-wrapper"><table><thead><tr><th>Operator</th><th>Example</th><th>Description</th><th>Overloadable trait</th></tr></thead><tbody>
 <tr><td><code>==</code>, <code>!=</code></td><td><code>a == 2</code>, <code>b != 'a'</code></td><td>Equality</td><td><code>eq</code></td></tr>
 <tr><td><code>=</code></td><td><code>a = 2</code></td><td>Assignment</td><td>N/A</td></tr>
 <tr><td><code>!</code></td><td><code>!a</code></td><td>Logical not</td><td><code>not</code></td></tr>
@@ -186,21 +186,22 @@ a specific group of operations or are used to convey meaning within the language
 <tr><td><code>-&gt;</code></td><td><code>(str) -&gt; usize</code></td><td>Function return type notation</td><td>N/A</td></tr>
 <tr><td><code>=&gt;</code></td><td><code>(a) =&gt; a + 2</code></td><td>Function Body definition</td><td>N/A</td></tr>
 </tbody></table>
+</div>
 <h2 id="comments-"><a class="header" href="#comments-">Comments 🚧</a></h2>
 <p>This table represents the syntax for different types of comments in Hash:</p>
-<table><thead><tr><th>Symbol</th><th>Description</th></tr></thead><tbody>
+<div class="table-wrapper"><table><thead><tr><th>Symbol</th><th>Description</th></tr></thead><tbody>
 <tr><td><code>//...</code></td><td>Line comment</td></tr>
 <tr><td><code>/*...*/</code></td><td>Block comment</td></tr>
 <tr><td><code>///</code></td><td>function doc comment    🚧</td></tr>
 <tr><td><code>//!</code></td><td>module doc comment      🚧</td></tr>
 </tbody></table>
+</div>
 <h1 id="type-signature-assertions"><a class="header" href="#type-signature-assertions">Type Signature Assertions</a></h1>
 <h2 id="basics"><a class="header" href="#basics">Basics</a></h2>
 <p>As in many other languages, the programmer can specify the type of a variable or
 a literal by using some special syntax. For example, in languages such as typescript,
 you can say that: </p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>some_value as str
 <span class="boring">}
@@ -222,8 +223,7 @@ to be true, like so:</p>
 <p>If you specify a type assertion, the compiler will either attempt to infer this information from the left-hand side of the <code>as</code> operator
 to the right. If the inference results in a different type to the right-hand side, this will raise a typechecking failure. </p>
 <p>For example, if you were to specify the expression:</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>&quot;A&quot; as char
 <span class="boring">}

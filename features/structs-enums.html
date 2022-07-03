@@ -139,8 +139,7 @@
                     <main>
                         <h1 id="struct-types"><a class="header" href="#struct-types">Struct types</a></h1>
 <p>In Hash, structs are pre-defined collections of heterogeneous types, similar to C or Rust:</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>FloatVector3 := struct(
    x: f32,
@@ -153,8 +152,7 @@
 Each field has a name, a type, and an optional default value.</p>
 <p>Structs can be instantiated with specific values for each of the fields.
 Default values can be omitted, but can also be overridden.</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>Dog := struct(
    age: u32 = 42,
@@ -168,8 +166,7 @@ print(d); // Dog(name = &quot;Bob&quot;, age = 42)
 </span></code></pre></pre>
 <p>Structs are nominal types.
 An argument of type <code>Dog</code> can only be fulfilled by an instance of <code>Dog</code>, and you can't pass in a struct that has the same fields but is of a different named type.</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>dog_name := (dog: Dog) =&gt; dog.name;
 
@@ -186,8 +183,7 @@ print(dog_name(FakeDog(age = 1, name = &quot;Max&quot;))); // Error: Type mismat
 <p>Hash enums are similar to Rust enums or Haskell data types.
 Each variant of an enum can also hold some data.
 These are also known as <em>algebraic data types</em>, or <em>tagged unions</em>.</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>NetworkError := enum(
    NoBytesReceived,
@@ -198,15 +194,13 @@ These are also known as <em>algebraic data types</em>, or <em>tagged unions</em>
 </span></code></pre></pre>
 <p>Enum contents consist of a semicolon-separated list of variant names.
 Each variant can be paired with some data, in the form of a comma-separated list of types.</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>err := NetworkError::Unexpected(&quot;something went terribly wrong&quot;, 32);
 <span class="boring">}
 </span></code></pre></pre>
 <p>They can be <code>match</code>ed to discover what they contain:</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>handle_error := (error: NetworkError) =&gt; match error {
    NoBytesReceived =&gt; print(&quot;No bytes received, stopping&quot;);
@@ -219,8 +213,7 @@ Each variant can be paired with some data, in the form of a comma-separated list
 Each enum member is essentially a struct type.</p>
 <h2 id="generic-types"><a class="header" href="#generic-types">Generic types</a></h2>
 <p>Because Hash supports type functions, structs and enums can be generic over some type parameters:</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>LinkedList := &lt;T&gt; =&gt; struct(
    head: Option&lt;&amp;raw T&gt;,

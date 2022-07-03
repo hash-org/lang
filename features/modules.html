@@ -153,8 +153,7 @@ Each <code>.hash</code> source file is a module, and inline modules can also be 
 <p>Modules in hash allow for a source to be split up into smaller code fragments, allowing for better source code organisation and maintenance.</p>
 <p>You can import modules by specifying the path relative to the current path. </p>
 <p>For example, if you wanted to include the modules <code>a</code>, <code>b</code>, and or <code>c</code> within your main file</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>// main.hash
 a := import(&quot;lib/a&quot;);
@@ -167,8 +166,7 @@ the namespace. </p>
 <h2 id="exporting"><a class="header" href="#exporting">Exporting</a></h2>
 <p>In order to export items from a module, use the <code>pub</code> keyword.
 For example:</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>/// a.hash
 
@@ -189,8 +187,7 @@ priv c := 1;
 </span></code></pre></pre>
 <h2 id="referencing-exports"><a class="header" href="#referencing-exports">Referencing exports</a></h2>
 <p>Furthermore, if the <code>a</code> module contained a public structure definition like <code>Point</code>:</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>// a.hash
 pub Point := struct(
@@ -200,8 +197,7 @@ pub Point := struct(
 <span class="boring">}
 </span></code></pre></pre>
 <p>Within main, you can create a new <code>Point</code> by doing the following</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>// main.hash
 a := import(&quot;lib/a&quot;);
@@ -219,8 +215,7 @@ print(p1.y); // 3
 <p>Furthermore, what if you wanted to import only a specific definition within a module such as the 'Point' structure from the module <code>a</code>.</p>
 <p>You can do so by destructuring the definitions into using the syntax as
 follows:</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>{ Point } := import(&quot;lib/a&quot;);
 
@@ -229,8 +224,7 @@ p1 := Point(x=2, y=3);
 </span></code></pre></pre>
 <p>In case you have a member of your current module already reserving a name, you
 can rename the exported members to your liking using the <code>as</code> pattern operator:</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>{ Point as LibPoint } = import(&quot;lib/a&quot;);
 
@@ -239,8 +233,7 @@ p1 := LibPoint(x=2, y=3);
 </span></code></pre></pre>
 <h2 id="inline-modules"><a class="header" href="#inline-modules">Inline modules</a></h2>
 <p>Other than through <code>.hash</code> files, modules can be created inline using <code>mod</code> blocks:</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>// a.hash
 bar := 3;

@@ -143,8 +143,7 @@
 Functions can be assigned to name bindings in the same way that any other value is assigned, similar to languages like Python lambdas, JavaScript arrow functions, etc.</p>
 <h2 id="general-syntax-and-notes"><a class="header" href="#general-syntax-and-notes">General syntax and notes</a></h2>
 <p>Functions are defined by being assigned to bindings:</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>func := (...args) =&gt; { ...body... };
 
@@ -154,8 +153,7 @@ func := (...args) -&gt; return_ty =&gt; { ...body... };
 </span></code></pre></pre>
 <p>The return type of a function is inferred from its body by default, but the <code>-&gt;</code> syntax can be used to explicitly declare it.</p>
 <p>Function arguments are comma separated:</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>func := (arg0, arg1) =&gt; { ...body... };
 
@@ -164,15 +162,13 @@ func := (arg0: str, arg1: char) -&gt; u32 =&gt; { ...body... };
 <span class="boring">}
 </span></code></pre></pre>
 <p>Function types can be explicitly provided after the <code>:</code> in the declaration, in which case argument names do not have to be specified.</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>var: (str, char) -&gt; u32 = (arg0, arg1) =&gt; { ... };
 <span class="boring">}
 </span></code></pre></pre>
 <p>Function literals can also specify default arguments, which must come after all required arguments:</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>func := (arg0: str, arg1: char = 'c') -&gt; u32 =&gt; { ... };
 
@@ -182,8 +178,7 @@ func := (arg0: str, arg1 = 'c') -&gt; u32 =&gt; { ... };
 <span class="boring">}
 </span></code></pre></pre>
 <p>Default arguments do not need to be specified when the function is called:</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>func := (a: str, b = 'c', c = 2) -&gt; u32 =&gt; { ... };
 

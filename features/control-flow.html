@@ -141,8 +141,7 @@
 <p>Conditional statements in the <code>Hash</code> programming language are very similar to other languages such as Python, Javascript, C and Rust. However, there is one subtle <strong>difference</strong>, which is that the statement provided to a conditional statement must always evaluate to an explicit boolean value. </p>
 <h2 id="if-else-statements"><a class="header" href="#if-else-statements">If-else statements</a></h2>
 <p>If statements are very basic constructs in Hash. An example of a basic <code>if-else</code> statement is as follows:</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>// checking if the value 'a' evaluates to being 'true'
 if a { print(&quot;a&quot;); } else { print(&quot;b&quot;); }
@@ -156,8 +155,7 @@ evaluate to something to be considered as true, then the block expression define
 at <code>else</code> is executed.</p>
 <p>If you want multiple clauses, you can utilise the <code>else-if</code> syntax to define multiple
 conditional statements. To use the <code>else-if</code> syntax, you do so like this:</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>if b == 2 {
      print(&quot;b is 2&quot;)
@@ -170,8 +168,7 @@ conditional statements. To use the <code>else-if</code> syntax, you do so like t
 </span></code></pre></pre>
 <p>As mentioned in the introduction, a conditional statement must evaluate an explicit boolean value. The <code>if</code> statement syntax will not infer a boolean value from a statement within <code>Hash</code>. This design feature is motivated by the fact that in many languages, common bugs and mistakes occur with the automatic inference of conditional statements. </p>
 <p>An example of an invalid program is:</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>a: u8 = 12;
 
@@ -180,37 +177,32 @@ if a { print(&quot;a&quot;) }
 </span></code></pre></pre>
 <h3 id="additional-syntax"><a class="header" href="#additional-syntax">Additional syntax</a></h3>
 <p>Furthermore, if you do not want an else statement you can do:</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>if a { print(&quot;a&quot;) }  // if a is true, then execute
 <span class="boring">}
 </span></code></pre></pre>
 <p>which is syntactic sugar for:</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>if a { print(&quot;a&quot;) } else {}
 <span class="boring">}
 </span></code></pre></pre>
 <p>Additionally, since the <code>if</code> statement body's are also equivalent to functional bodies, you
 can also specifically return a type as you would normally do within a function body:</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>abs: (i64: x) =&gt; i64 = if x &lt; 0 { -x } else { x }
 <span class="boring">}
 </span></code></pre></pre>
 <p>You can also assign values since <code>if</code> statements are just blocks</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>my_value: i32 = if some_condition == x { 3 } else { 5 };
 <span class="boring">}
 </span></code></pre></pre>
 <p>However, you cannot do something like this:</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>abs: (i64: x) =&gt; i64 = if x &lt; 0 { -x }
 <span class="boring">}
@@ -219,8 +211,7 @@ can also specifically return a type as you would normally do within a function b
 of what should happen for the <code>else</code> case.</p>
 <h2 id="if-statements-and-enums-"><a class="header" href="#if-statements-and-enums-">If statements and Enums 🚧</a></h2>
 <p>You can destruct enum values within if statements using the <code>if-let</code> syntax, like so:</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>enum Result = &lt;T, E&gt; =&gt; {
    Ok(T);
@@ -239,8 +230,7 @@ if let Ok(value) = result  {
 </span></code></pre></pre>
 <p>Furthermore, for more complicated conditional statements, you can include an expression
 block which is essentially treated as if it was a functional body, like so:</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>f: str = &quot;file.txt&quot;;
 
@@ -265,8 +255,7 @@ of <code>a</code> within the <code>if</code> statement body or later on in the p
 <br />
 <h2 id="match-cases"><a class="header" href="#match-cases">Match cases</a></h2>
 <p>Match cases are one step above the simple <code>if-else</code> syntax.  Using a matching case, you can construct more complicated cases in a more readable format than u can with an <code>if-else</code> statement. Additionally, you can destruct Enums into their corresponding values. To use a matching case, you do the following:</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span>
 <span class="boring">fn main() {
 </span>a := input&lt;u8&gt;();
@@ -290,8 +279,7 @@ m := convert(input&lt;u8&gt;());
 </span></code></pre></pre>
 <p>The <code>_</code> case is a special wildcard case that captures any case. This is essentially synonymous with the <code>else</code> clause in many other languages like Python or JavaScript. For conventional purposes, it should be included when creating a <code>match</code> statement where the type value is not reasonably bounded (like an integer). One subtle difference with the <code>match</code> syntax is you must always explicitly define a <code>_</code> case. This language behaviour is designed to enforce that <code>explicit</code> is better than <code>implicit</code>. So, if you know that a program should never hit
 the default case:</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>match x {
   1 =&gt; &quot;one&quot;;
@@ -302,8 +290,7 @@ the default case:</p>
 </span></code></pre></pre>
 <p><strong>Note</strong>: You do not have to provide a default case if you have defined all the cases for a type (this mainly applies to enums).</p>
 <p>Additionally, because cases are matched incrementally, by doing the following:</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>convert: (x: u8) =&gt; str = (x) =&gt; match x {
   _ =&gt; &quot;not one or two&quot;;
@@ -315,8 +302,7 @@ the default case:</p>
 <p>The value of <code>m</code> will always evaluate as <code>&quot;not one or two&quot;</code> since the wildcard matches any condition.</p>
 <p>Match statements are also really good for destructing enum types in Hash. 
 For example,</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>enum Result = &lt;T, E&gt; =&gt; {
    Ok(T);
@@ -336,8 +322,7 @@ match result {
 </span></code></pre></pre>
 <p>To specify multiple conditions for a single case within a <code>match</code> statement, you can do so by
 writing the following syntax:</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>x: u32 = input&lt;u32&gt;();
 
@@ -350,8 +335,7 @@ match x {
 </span></code></pre></pre>
 <p>To specify more complex conditional statements like and within the match case, you
 can do so using the <code>match-if</code> syntax, like so:</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>x: u32 = input&lt;u32&gt;();
 y: bool = true;
@@ -381,8 +365,7 @@ remain, <code>continue</code> behaves just like <code>break</code>.</p>
 <p>For loops are special loop control statements that are designed to be used
 with iterators. </p>
 <p>For loops can be defined as:</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>for i in range(1, 10) { // range is a built in iterator
     print(i);
@@ -391,8 +374,7 @@ with iterators. </p>
 </span></code></pre></pre>
 <p>Iterating over lists is also quite simple using the <code>iter</code> function to 
 convert the list into an iterator:</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>nums: [u32] = [1,2,3,4,5,6,7,8,9,10]; 
 
@@ -420,8 +402,7 @@ to <code>true</code>, the loop body is executed, otherwise the interpreter moves
 use loop control flow statements like <code>break</code> or <code>continue</code> to prematurely stop looping for a
 given condition.</p>
 <p>While loops can be defined as:</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span>
 <span class="boring">fn main() {
 </span>c: u32 = 0;
@@ -433,8 +414,7 @@ while c &lt; 10 {
 </span></code></pre></pre>
 <p>The <code>loop</code> keyword is equivalent of someone writing a <code>while</code> loop that has
 a conditional expression that always evaluate to <code>true</code>; like so,</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>while true {
     // do something
@@ -451,8 +431,7 @@ loop {
 <p><strong>Note</strong>: In <code>Hash</code>, you cannot write <code>do-while</code> loops, but if u want to write a loop that behaves
 like a <code>do-while</code> statement, here is a good example using <code>loop</code>:</p>
 </blockquote>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span>
 <span class="boring">fn main() {
 </span>loop {
@@ -467,8 +446,7 @@ like a <code>do-while</code> statement, here is a good example using <code>loop<
 <h3 id="expression-blocks-and-behaviour"><a class="header" href="#expression-blocks-and-behaviour">Expression blocks and behaviour</a></h3>
 <p>Furthermore, The looping condition can also be represented as a block which means it can have any number of expressions
 before the final expression. For example:</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>while {c += 1; c &lt; 10} {
     print(i);
@@ -477,8 +455,7 @@ before the final expression. For example:</p>
 </span></code></pre></pre>
 <p>It is worth noting that the looping expression whether block or not must explicitly have the 
 <code>boolean</code> return type. For example, the code below will fail typechecking:</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>c: u32 = 100;
 
@@ -499,8 +476,7 @@ while c -= 1 {
 </code></pre>
 <h2 id="loop"><a class="header" href="#loop">Loop</a></h2>
 <p>The loop construct is the simplest of the three. The basic syntax for a loop is as follows:</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span>
 <span class="boring">fn main() {
 </span>c: u64 = 1;
@@ -512,8 +488,7 @@ loop {
 <span class="boring">}
 </span></code></pre></pre>
 <p>You can also use conditional statements within the loop body (which is equivalent to a function body) like so:</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span>
 <span class="boring">fn main() {
 </span>c: u64 = 1;
@@ -526,8 +501,7 @@ loop {
 } // this will loop 10 times, and print all 10 times
 <span class="boring">}
 </span></code></pre></pre>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>c: u64 = 1;
 

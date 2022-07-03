@@ -146,8 +146,7 @@ This chapter is dedicated to documenting the various kinds of patterns that ther
 <h2 id="literal-patterns"><a class="header" href="#literal-patterns">Literal patterns</a></h2>
 <p>Literal patterns are patterns that match a specific value of a primitive type, like a number or a string.
 For example, consider the following snippet of code:</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>foo := get_foo(); // foo: i32
 
@@ -163,8 +162,7 @@ match foo {
 These perform <code>foo == 1</code>, <code>foo == 2</code> and <code>foo == 3</code> in sequence, and the code follows the branch which succeeds first.
 If no branch succeeds, the <code>_</code> branch is followed, which means &quot;match anything&quot;.
 Literals can be integer literals for integer types (signed or unsigned), string literals for the <code>str</code> type, or character literals for the <code>char</code> type:</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>match my_char {
     'A' =&gt; print(&quot;First letter&quot;);
@@ -183,8 +181,7 @@ match my_str {
 <h2 id="binding-patterns"><a class="header" href="#binding-patterns">Binding patterns</a></h2>
 <p>Nested values within the value being pattern matched can be bound to symbols, using binding patterns.
 A binding pattern is any valid Hash identifier:</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>match fallible_operation() { // fallible_operation: () -&gt; Result&lt;f32, i32&gt;
     Ok(success) =&gt; print(&quot;Got success &quot; + conv(result)); // success: f32
@@ -195,8 +192,7 @@ A binding pattern is any valid Hash identifier:</p>
 <h2 id="tuple-patterns"><a class="header" href="#tuple-patterns">Tuple patterns</a></h2>
 <p>Tuple patterns match a tuple type of some given arity, and contain nested patterns.
 They are irrefutable if their inner patterns are irrefutable, so they can be used in declarations.</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>Cat := struct(name: str);
 
@@ -215,8 +211,7 @@ assert(elements == [1, 2, 3]);
 A struct is comprised of a single constructor, while an enum might be comprised of multiple constructors.
 Struct constructors are irrefutable if their inner patterns are irrefutable, while enum constructors are irrefutable only if the enum contains a single variant.
 For example:</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>Option := &lt;T&gt; =&gt; enum(Some(value: T), None);
 
@@ -231,8 +226,7 @@ match my_val {
 <span class="boring">}
 </span></code></pre></pre>
 <p>The names of the members of a constructor need to be specified if the matching isn't done in order:</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>Dog := struct(name: str, breed: str);
 
@@ -250,8 +244,7 @@ Dog(name, breed) = Dog(
 </span></code></pre></pre>
 <h2 id="list-patterns"><a class="header" href="#list-patterns">List patterns</a></h2>
 <p>A list pattern can match elements at certain positions of a list by using the following syntax:</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>match arr {
     [a, b] =&gt; print(conv(a) + &quot; &quot; + conv(b));
@@ -260,8 +253,7 @@ Dog(name, breed) = Dog(
 <span class="boring">}
 </span></code></pre></pre>
 <p>The <code>...</code> spread operator can be used to capture or ignore the rest of the elements of the list at some position:</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>match arr {
     [a, b, ...] =&gt; print(conv(a) + &quot; &quot; + conv(b));
@@ -270,8 +262,7 @@ Dog(name, breed) = Dog(
 <span class="boring">}
 </span></code></pre></pre>
 <p>If you want to match the remaining elements with some pattern, you can specify a pattern after the <code>spread</code> operator like so:</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>match arr {
     [a, b, ...rest] =&gt; print(conv(a) + &quot; &quot; + conv(b) + &quot; &quot; + conv(rest));
@@ -282,8 +273,7 @@ Dog(name, breed) = Dog(
 </span></code></pre></pre>
 <p>One obvious limitation of the <code>spread</code> operator is that you can only use it once in the list pattern.
 For example, the following pattern will be reported as an error by the compiler:</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>[..., a, ...] := arr;
 <span class="boring">}
@@ -300,8 +290,7 @@ For example, the following pattern will be reported as an error by the compiler:
 <p>Module patterns are used to match members of a module.
 They are used when importing symbols from other modules.
 They follow a simple syntax:</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>// imports only a and b from the module
 {a, b} := import(&quot;./my_lib&quot;);
@@ -320,8 +309,7 @@ To read more about modules, you can click <a href="./modules.html">here</a>.</p>
 <h2 id="or-patterns"><a class="header" href="#or-patterns">Or-patterns</a></h2>
 <p>Or-patterns are specified using the <code>|</code> pattern operator, and allow one to match multiple different patterns, and use the one which succeeds.
 For example:</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>symmetric_result: Result&lt;str, str&gt; := Ok(&quot;bilbobaggins&quot;);
 
@@ -332,8 +320,7 @@ For example:</p>
 Furthermore, each branch has the binding <code>inner</code>, which always has the type <code>str</code>, and so is a valid pattern.
 The same name binding can appear in multiple branches of an or-pattern, given that it is bound in every branch, and always to the same type.
 Another use-case of or-patterns is to collapse match cases:</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>match color {
     Red | Blue | Green =&gt; print(&quot;Primary additive&quot;);
@@ -344,8 +331,7 @@ Another use-case of or-patterns is to collapse match cases:</p>
 </span></code></pre></pre>
 <h2 id="conditional-patterns"><a class="header" href="#conditional-patterns">Conditional patterns</a></h2>
 <p>Conditional patterns allow one to specify further arbitrary boolean conditions to a pattern for it to match:</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>match my_result {
     Ok(inner) if inner &gt; threshold * 2.0 =&gt; {
@@ -370,8 +356,7 @@ With more advanced type refinement and literal types, this restriction can be li
 <h2 id="pattern-grouping"><a class="header" href="#pattern-grouping">Pattern grouping</a></h2>
 <p>Patterns can be grouped using parentheses <code>()</code>.
 This is necessary in declarations for example, if one wants to specify a conditional pattern:</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>// get_value: () -&gt; bool;
 true | false := get_value(); // Error: bitwise-or not implemented between `bool` and `void`

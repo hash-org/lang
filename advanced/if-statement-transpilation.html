@@ -164,8 +164,7 @@ match true {
 }
 </code></pre>
 <p>For example, the following <code>if</code> statement will be converted as follows:</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>if conditionA {
   print(&quot;conditionA&quot;)
@@ -192,8 +191,7 @@ to produce more optimal AST representations of the program.</p>
 to avoid issues with pattern exhaustiveness. This behaviour is designed to mimic the control flow of classic <code>if</code>
 statements because the <code>else</code> branch will have an assigned empty expression block.</p>
 <p>From the above example, but without the <code>else</code> branch:</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>if conditionA {
   print(&quot;conditionA&quot;)
